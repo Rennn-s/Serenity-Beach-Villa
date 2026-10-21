@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f6f0">
+  <meta name="description" content="Jelajahi rekomendasi partner lokal Serenity Beach Villa: rental motor, field trip, pengalaman budaya Bali, snorkeling, diving, surfing, dan jetski.">
+  <title>Pengalaman Affiliate — Serenity Beach Villa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #243d3b;
+      --muted: #687b75;
+      --cream: #f8f6f0;
+      --paper: #fffefa;
+      --sea-dark: #203d3a;
+      --line: #e6e5dc;
+      --serif: "Playfair Display", Georgia, serif;
+      --sans: "DM Sans", Arial, sans-serif;
+      --content: 1160px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--cream); color: var(--ink); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; width: 100%; object-fit: cover; }
+    .container { width: min(var(--content), calc(100% - 64px)); margin-inline: auto; }
+    .announcement { display: flex; min-height: 36px; align-items: center; justify-content: center; gap: 9px; padding: 7px 16px; background: var(--sea-dark); color: #f7f4e9; font-size: 10px; letter-spacing: .13em; text-align: center; text-transform: uppercase; }
+    .announcement span { color: #e7c697; }
+    .site-header { position: sticky; z-index: 10; top: 0; border-bottom: 1px solid rgba(36,61,59,.09); background: rgba(248,246,240,.96); backdrop-filter: blur(14px); }
+    .nav { display: flex; min-height: 76px; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: inline-flex; flex-shrink: 0; align-items: center; gap: 11px; }
+    .brand-mark { display: grid; width: 35px; height: 35px; place-items: center; border: 1px solid #ad9873; border-radius: 50%; color: #987a4c; font: 18px var(--serif); }
+    .brand-name { font: 16px var(--serif); }
+    .brand-name small { display: block; margin-top: 3px; color: var(--muted); font: 8px var(--sans); letter-spacing: .2em; text-transform: uppercase; }
+    .back-link { color: #526761; font-size: 10px; letter-spacing: .09em; text-transform: uppercase; }
+    .back-link:hover { color: #b1844c; }
+    .hero { position: relative; display: flex; min-height: 390px; overflow: hidden; align-items: center; color: white; background: #63736e; }
+    .hero img { position: absolute; inset: 0; height: 100%; }
+    .hero::after { position: absolute; inset: 0; background: linear-gradient(90deg,rgba(19,39,39,.68),rgba(23,40,39,.25) 75%); content: ""; }
+    .hero-content { position: relative; z-index: 1; width: min(var(--content),calc(100% - 64px)); margin: 0 auto; padding: 60px 0; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 10px; color: #f0d9b4; font-size: 9px; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; }
+    .eyebrow::before { width: 28px; height: 1px; background: currentColor; content: ""; }
+    h1,h2,h3,p { margin-top: 0; }
+    h1 { max-width: 670px; margin: 20px 0 14px; font: 400 clamp(42px,6.5vw,72px)/1.04 var(--serif); letter-spacing: -.03em; }
+    .hero p { max-width: 460px; margin-bottom: 0; color: rgba(255,255,255,.86); font-size: 13px; line-height: 1.9; }
+    .intro { padding: 74px 0 37px; text-align: center; }
+    .intro .eyebrow { color: #9a7950; }
+    .intro h2 { margin: 14px 0 12px; font: 400 clamp(32px,4.5vw,48px)/1.1 var(--serif); }
+    .intro p { max-width: 600px; margin: 0 auto; color: var(--muted); font-size: 12px; line-height: 1.9; }
+    .affiliate-list { display: grid; gap: 18px; padding-bottom: 82px; }
+    .affiliate-card { display: grid; min-height: 275px; grid-template-columns: 40% 1fr; background: var(--paper); }
+    .affiliate-card:nth-child(even) { grid-template-columns: 1fr 40%; }
+    .affiliate-card:nth-child(even) img { order: 2; }
+    .affiliate-card img { height: 100%; min-height: 275px; }
+    .card-copy { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; padding: clamp(24px,5vw,55px); }
+    .number { color: #a78b64; font-size: 9px; font-weight: 600; letter-spacing: .16em; }
+    .card-copy h2 { margin: 11px 0 10px; font: 400 clamp(27px,3vw,36px)/1.15 var(--serif); }
+    .card-copy p { max-width: 510px; margin-bottom: 0; color: var(--muted); font-size: 12px; line-height: 1.9; }
+    .card-copy ul { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 0; padding: 0; list-style: none; }
+    .card-copy li { padding: 7px 9px; border: 1px solid var(--line); color: #5e716a; font-size: 9px; }
+    .card-link { display: inline-flex; align-items: center; gap: 9px; margin-top: 19px; padding-bottom: 6px; border-bottom: 1px solid #b5966d; color: var(--sea-dark); font-size: 9px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
+    .note { margin: -44px auto 76px; padding: 21px 24px; border: 1px solid #e6e2d7; background: #f0eee6; color: #687b75; font-size: 11px; line-height: 1.8; text-align: center; }
+    .note strong { color: var(--ink); }
+    .footer { padding: 23px 0; background: var(--sea-dark); color: #b7c2b8; font-size: 9px; }
+    .footer-row { display: flex; justify-content: space-between; gap: 20px; }
+    @media (max-width: 640px) {
+      .container,.hero-content { width: calc(100% - 36px); }
+      .nav { min-height: 66px; }
+      .brand-name { font-size: 14px; }
+      .back-link { max-width: 100px; font-size: 8px; line-height: 1.5; text-align: right; }
+      .hero { min-height: 345px; }
+      .hero img { object-position: 60% center; }
+      .hero-content { padding: 50px 0; }
+      .hero p { font-size: 12px; }
+      .intro { padding: 60px 0 30px; }
+      .affiliate-list { gap: 13px; padding-bottom: 70px; }
+      .affiliate-card,.affiliate-card:nth-child(even) { grid-template-columns: 1fr; }
+      .affiliate-card:nth-child(even) img { order: 0; }
+      .affiliate-card img { height: 210px; min-height: 0; }
+      .card-copy { padding: 24px; }
+      .note { margin: -36px auto 60px; }
+      .footer-row { flex-direction: column; gap: 7px; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+  <div class="announcement"><span>✳</span> A quieter kind of island escape <span>✳</span></div>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="index.html#home" aria-label="Serenity Beach Villa, beranda">
+        <span class="brand-mark" aria-hidden="true">S</span>
+        <span class="brand-name">Serenity Beach Villa<small>Private island living</small></span>
+      </a>
+      <a class="back-link" href="index.html#affiliate">← Kembali ke villa</a>
+    </div>
+  </header>
+  <main>
+    <section class="hero">
+      <img src="https://images.pexels.com/photos/32314301/pexels-photo-32314301/free-photo-of-serene-beach-walk-at-sunset-in-bali-indonesia.jpeg?auto=compress&cs=tinysrgb&w=2000" alt="Suasana pantai Bali saat senja" fetchpriority="high">
+      <div class="hero-content">
+        <span class="eyebrow">Local partners, island moments</span>
+        <h1>Lebih banyak cara untuk menikmati pulau.</h1>
+        <p>Jelajahi rekomendasi aktivitas dari partner affiliate lokal kami. Pilih pengalaman yang sesuai dengan suasana liburan Anda.</p>
+      </div>
+    </section>
+    <section class="container">
+      <div class="intro">
+        <span class="eyebrow">Find your kind of adventure</span>
+        <h2>Temukan pengalaman favorit Anda.</h2>
+        <p>Dari cara praktis berkeliling sampai petualangan di tengah laut, setiap pilihan berikut bisa membantu Anda merencanakan waktu di pulau dengan lebih mudah.</p>
+      </div>
+      <div class="affiliate-list">
+        <article class="affiliate-card" id="rental-motor">
+          <img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=1100&q=82" alt="Sepeda motor untuk berkeliling pulau" loading="lazy">
+          <div class="card-copy">
+            <span class="number">01 / BERKELILING</span>
+            <h2>Rental motor</h2>
+            <p>Jelajahi pulau dengan lebih leluasa. Rental motor cocok untuk Anda yang ingin mengatur waktu sendiri, singgah di tempat menarik, dan menikmati perjalanan dengan ritme santai.</p>
+            <ul><li>Praktis untuk perjalanan mandiri</li><li>Fleksibel mengatur rute</li><li>Tanyakan ketersediaan dan ketentuan</li></ul>
+            <a class="card-link" href="booking.html?experience=rental-motor">Tanyakan saat merencanakan kunjungan <span aria-hidden="true">→</span></a>
+          </div>
+        </article>
+        <article class="affiliate-card" id="field-trip">
+          <img src="https://images.pexels.com/photos/35428411/pexels-photo-35428411/free-photo-of-lush-green-rice-terraces-in-bali-indonesia.jpeg?auto=compress&cs=tinysrgb&w=1100" alt="Sawah terasering Bali sebagai tujuan perjalanan sehari" loading="lazy">
+          <div class="card-copy">
+            <span class="number">02 / JELAJAH ALAM</span>
+            <h2>Field trip</h2>
+            <p>Ikuti perjalanan untuk melihat sisi pulau di luar villa. Field trip bisa menjadi pilihan untuk menikmati pemandangan alam, mengenal tempat-tempat lokal, dan mengisi hari dengan pengalaman baru.</p>
+            <ul><li>Eksplorasi tempat dan lanskap lokal</li><li>Pilihan aktivitas untuk perjalanan sehari</li><li>Rute dan jadwal mengikuti partner</li></ul>
+            <a class="card-link" href="booking.html?experience=field-trip">Tanyakan pilihan perjalanan <span aria-hidden="true">→</span></a>
+          </div>
+        </article>
+        <article class="affiliate-card" id="entertainment">
+          <img src="https://images.pexels.com/photos/35823226/pexels-photo-35823226/free-photo-of-serene-ulun-danu-beratan-temple-on-lake.jpeg?auto=compress&cs=tinysrgb&w=1100" alt="Pura Ulun Danu Beratan di tepi danau Bali" loading="lazy">
+          <div class="card-copy">
+            <span class="number">03 / BUDAYA LOKAL</span>
+            <h2>Entertainment</h2>
+            <p>Kenali Bali lewat tradisi, seni, dan kehidupan lokalnya. Anda dapat menanyakan pengalaman seperti pertunjukan tari tradisional, kunjungan ke pura, atau aktivitas budaya lain yang tersedia selama kunjungan.</p>
+            <ul><li>Mengenal seni dan tradisi Bali</li><li>Pilihan pengalaman budaya bersama partner lokal</li><li>Jadwal dan ketentuan perlu dikonfirmasi</li></ul>
+            <a class="card-link" href="booking.html?experience=entertainment">Tanyakan pengalaman budaya Bali <span aria-hidden="true">→</span></a>
+          </div>
+        </article>
+        <article class="affiliate-card" id="ocean-experience">
+          <img src="https://images.pexels.com/photos/32314302/pexels-photo-32314302/free-photo-of-serene-morning-at-bali-beach-with-surfers.jpeg?auto=compress&cs=tinysrgb&w=1100" alt="Peselancar bersiap menikmati ombak di pantai Bali" loading="lazy">
+          <div class="card-copy">
+            <span class="number">04 / DI TENGAH LAUT</span>
+            <h2>Ocean experience</h2>
+            <p>Nikmati laut dari dekat melalui aktivitas yang sesuai dengan minat dan tingkat kenyamanan Anda. Pilihan dapat mencakup eksplorasi bawah air hingga mencoba olahraga air.</p>
+            <ul><li>Snorkeling untuk melihat kehidupan bawah laut</li><li>Diving dan surfing</li><li>Jetski untuk pengalaman di atas air</li></ul>
+            <a class="card-link" href="booking.html?experience=ocean-experience">Tanyakan aktivitas laut <span aria-hidden="true">→</span></a>
+          </div>
+        </article>
+      </div>
+      <aside class="note"><strong>Catatan:</strong> Aktivitas di halaman ini merupakan pilihan dari partner affiliate, bukan fasilitas yang otomatis termasuk dalam harga villa. Ketersediaan, harga, jadwal, dan ketentuan perlu dikonfirmasi sebelum pemesanan.</aside>
+    </section>
+  </main>
+  <footer class="footer">
+    <div class="container footer-row"><span>© <span id="year"></span> Serenity Beach Villa</span><a href="index.html#home">Kembali ke beranda</a></div>
+  </footer>
+  <script>document.querySelector("#year").textContent = new Date().getFullYear();</script>
+</body>
+</html>

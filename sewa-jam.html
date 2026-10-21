@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f6f0">
+  <meta name="description" content="Rangkuman estimasi sewa villa per jam di Serenity Beach Villa.">
+  <title>Rangkuman Sewa Per Jam — Serenity Beach Villa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #243d3b;
+      --muted: #687b75;
+      --cream: #f8f6f0;
+      --paper: #fffefa;
+      --sea-dark: #203d3a;
+      --line: #e6e5dc;
+      --serif: "Playfair Display", Georgia, serif;
+      --sans: "DM Sans", Arial, sans-serif;
+      --content: 760px;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--cream); color: var(--ink); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(var(--content),calc(100% - 40px)); margin-inline: auto; }
+    .announcement { display: flex; min-height: 36px; align-items: center; justify-content: center; gap: 9px; padding: 7px 16px; background: var(--sea-dark); color: #f7f4e9; font-size: 10px; letter-spacing: .13em; text-align: center; text-transform: uppercase; }
+    .announcement span { color: #e7c697; }
+    .site-header { border-bottom: 1px solid rgba(36,61,59,.09); background: rgba(248,246,240,.96); }
+    .nav { display: flex; min-height: 72px; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { display: inline-flex; align-items: center; gap: 11px; }
+    .brand-mark { display: grid; width: 35px; height: 35px; place-items: center; border: 1px solid #ad9873; border-radius: 50%; color: #987a4c; font: 18px var(--serif); }
+    .brand-name { font: 16px var(--serif); }
+    .brand-name small { display: block; margin-top: 3px; color: var(--muted); font: 8px var(--sans); letter-spacing: .2em; text-transform: uppercase; }
+    .back-link { color: #526761; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; }
+    main { padding: 58px 0 80px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 10px; color: #9a7950; font-size: 9px; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; }
+    .eyebrow::before { width: 28px; height: 1px; background: currentColor; content: ""; }
+    h1,h2,p { margin-top: 0; }
+    h1 { margin: 14px 0 9px; font: 400 clamp(35px,6vw,52px)/1.1 var(--serif); }
+    .intro { margin-bottom: 23px; color: var(--muted); font-size: 12px; line-height: 1.8; }
+    .notice { margin-bottom: 17px; padding: 15px 17px; border-left: 2px solid #b5966d; background: #f5f1e8; color: #526761; font-size: 11px; line-height: 1.75; }
+    .notice strong { color: var(--ink); }
+    .summary { padding: 25px; border: 1px solid rgba(36,61,59,.09); background: var(--paper); box-shadow: 0 12px 35px rgba(35,55,48,.06); }
+    .summary-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 15px; padding-bottom: 17px; border-bottom: 1px solid var(--line); }
+    .summary-heading h2 { margin-bottom: 4px; font: 400 24px var(--serif); }
+    .summary-heading p { margin-bottom: 0; color: var(--muted); font-size: 10px; }
+    .reference { color: var(--muted); font-size: 9px; text-align: right; }
+    .reference strong { display: inline-block; margin-top: 4px; color: var(--ink); }
+    .details { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding: 18px 0; }
+    .detail span { display: block; margin-bottom: 4px; color: var(--muted); font-size: 9px; }
+    .detail strong { font-size: 11px; font-weight: 600; }
+    .price-row { display: flex; align-items: center; justify-content: space-between; gap: 15px; padding: 15px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); color: #526761; font-size: 11px; }
+    .price-row strong { color: var(--ink); }
+    .total-row { display: flex; align-items: center; justify-content: space-between; gap: 15px; padding-top: 18px; }
+    .total-row span { font-size: 11px; font-weight: 700; }
+    .total-row strong { color: var(--sea-dark); font-size: 22px; }
+    [hidden] { display: none !important; }
+    .methods { margin-top: 22px; padding-top: 20px; border-top: 1px solid var(--line); }
+    .methods h3 { margin: 0 0 5px; font: 400 21px var(--serif); }
+    .methods-intro { margin-bottom: 15px; color: var(--muted); font-size: 10px; line-height: 1.7; }
+    .method-group { margin: 0; padding: 0; border: 0; }
+    .method-group + .method-group { margin-top: 15px; }
+    .method-group legend { margin: 0 0 8px; padding: 0; color: #65766f; font-size: 9px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+    .method-options { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px; }
+    .method-option { display: flex; min-height: 42px; align-items: center; gap: 9px; padding: 9px 11px; border: 1px solid var(--line); color: #526761; cursor: pointer; font-size: 10px; }
+    .method-option:hover { border-color: #8da49a; }
+    .method-option:has(input:checked) { border-color: #66877a; background: #f0f4ec; color: var(--ink); }
+    .method-option input { width: 14px; height: 14px; flex: 0 0 auto; accent-color: var(--sea-dark); }
+    .method-submit { display: flex; width: 100%; min-height: 45px; align-items: center; justify-content: center; gap: 9px; margin-top: 18px; border: 0; background: var(--sea-dark); color: white; cursor: pointer; font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .method-submit:hover { background: #345d55; }
+    .payment-result { display: none; margin-top: 12px; padding: 13px 14px; border: 1px solid #d9e2d8; background: #edf2e9; color: var(--sea-dark); font-size: 10px; line-height: 1.7; }
+    .payment-result.is-visible { display: block; }
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+    .button { display: inline-flex; min-height: 45px; align-items: center; justify-content: center; gap: 9px; padding: 0 17px; background: var(--sea-dark); color: white; font-size: 10px; font-weight: 700; }
+    .button:hover { background: #345d55; }
+    .button-secondary { border: 1px solid var(--line); background: transparent; color: var(--ink); }
+    .button-secondary:hover { background: #f3f1e9; }
+    .invalid { padding: 17px; border: 1px solid #ecd6cc; background: #fbf1ed; color: #874f3f; font-size: 12px; line-height: 1.7; }
+    .footer { padding: 23px 0; background: var(--sea-dark); color: #b7c2b8; font-size: 9px; }
+    @media (max-width:480px) {
+      .container { width: calc(100% - 32px); }
+      .nav { min-height: 65px; }
+      .brand-name { font-size: 14px; }
+      .back-link { max-width: 120px; font-size: 8px; line-height: 1.5; text-align: right; }
+      main { padding: 39px 0 58px; }
+      .summary { padding: 19px 16px; }
+      .summary-heading { flex-direction: column; }
+      .reference { text-align: left; }
+      .actions { flex-direction: column; }
+      .button { width: 100%; }
+      .method-options { gap: 7px; }
+      .method-option { padding: 8px; font-size: 9px; }
+    }
+    @media print {
+      body { background: white; }
+      .announcement,.site-header,.notice,.actions,.footer { display: none; }
+      main { padding: 0; }
+      .container { width: 100%; }
+      .summary { border: 0; box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="announcement"><span aria-hidden="true">✳</span> Serenity Beach Villa <span aria-hidden="true">✳</span></div>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="index.html" aria-label="Serenity Beach Villa, beranda"><span class="brand-mark" aria-hidden="true">S</span><span class="brand-name">Serenity Beach Villa<small>Private island living</small></span></a>
+      <a class="back-link" href="booking.html">← Kembali ke booking</a>
+    </div>
+  </header>
+  <main class="container">
+    <section>
+      <span class="eyebrow">Sewa villa per jam</span>
+      <h1>Rangkuman permintaan sewa.</h1>
+      <p class="intro">Periksa tanggal, durasi, dan estimasi sebelum menghubungi tim villa untuk penawaran serta konfirmasi jadwal.</p>
+    </section>
+    <aside class="notice" role="note"><strong>Belum menjadi reservasi atau pembayaran.</strong> Rangkuman ini belum terkirim ke tim villa. Ketersediaan dan harga akhir perlu dikonfirmasi terlebih dahulu. Jangan melakukan transfer sebelum menerima konfirmasi resmi.</aside>
+    <section class="summary" aria-labelledby="summary-heading">
+      <div class="summary-heading">
+        <div><h2 id="summary-heading">Permintaan sewa per jam</h2><p>Serenity Beach Villa · Ubud, Bali</p></div>
+        <div class="reference">REFERENSI<br><strong id="reference-number">-</strong></div>
+      </div>
+      <div id="request-details">
+        <div class="details">
+          <div class="detail"><span>Tanggal sewa</span><strong id="rental-date">-</strong></div>
+          <div class="detail"><span>Jumlah tamu</span><strong id="guest-count">-</strong></div>
+          <div class="detail"><span>Durasi sewa</span><strong id="rental-duration">-</strong></div>
+          <div class="detail"><span>Tarif estimasi</span><strong id="hourly-rate">-</strong></div>
+        </div>
+        <div class="price-row"><span id="calculation">Perhitungan estimasi</span><strong id="estimated-total">-</strong></div>
+        <div class="total-row"><span>Estimasi biaya sewa</span><strong id="total-amount">-</strong></div>
+      </div>
+      <div class="invalid" id="invalid-request" role="alert" hidden>Detail permintaan sewa tidak valid. Silakan kembali ke halaman booking dan masukkan tanggal serta durasi minimal 3 jam.</div>
+      <section class="methods" id="payment-methods" aria-labelledby="methods-heading">
+        <h3 id="methods-heading">Pilih metode pembayaran</h3>
+        <p class="methods-intro">Pilih metode untuk persiapan setelah harga dan jadwal dikonfirmasi tim villa. Pilihan ini belum memproses pembayaran.</p>
+        <form id="payment-form">
+          <fieldset class="method-group">
+            <legend>Transfer bank</legend>
+            <div class="method-options">
+              <label class="method-option"><input type="radio" name="payment-method" value="Transfer Bank BCA" required>BCA</label>
+              <label class="method-option"><input type="radio" name="payment-method" value="Transfer Bank Mandiri">Mandiri</label>
+              <label class="method-option"><input type="radio" name="payment-method" value="Transfer Bank BNI">BNI</label>
+            </div>
+          </fieldset>
+          <fieldset class="method-group">
+            <legend>E-wallet</legend>
+            <div class="method-options">
+              <label class="method-option"><input type="radio" name="payment-method" value="GoPay">GoPay</label>
+              <label class="method-option"><input type="radio" name="payment-method" value="OVO">OVO</label>
+              <label class="method-option"><input type="radio" name="payment-method" value="DANA">DANA</label>
+            </div>
+          </fieldset>
+          <fieldset class="method-group">
+            <legend>Kartu kredit / debit</legend>
+            <div class="method-options">
+              <label class="method-option"><input type="radio" name="payment-method" value="Visa">Visa</label>
+              <label class="method-option"><input type="radio" name="payment-method" value="American Express">American Express</label>
+              <label class="method-option"><input type="radio" name="payment-method" value="Mastercard">Mastercard</label>
+            </div>
+          </fieldset>
+          <fieldset class="method-group">
+            <legend>Metode lainnya</legend>
+            <div class="method-options">
+              <label class="method-option"><input type="radio" name="payment-method" value="ATM">ATM</label>
+              <label class="method-option"><input type="radio" name="payment-method" value="Retail">Retail (minimarket)</label>
+            </div>
+          </fieldset>
+          <button class="method-submit" type="submit">Pilih metode ini <span aria-hidden="true">→</span></button>
+        </form>
+        <div class="payment-result" id="payment-result" role="status" aria-live="polite"></div>
+      </section>
+      <div class="actions">
+        <a class="button" href="booking.html#booking-form-section">Kembali ke booking</a>
+        <button class="button button-secondary" id="print-request" type="button">Cetak rangkuman</button>
+      </div>
+    </section>
+  </main>
+  <footer class="footer"><div class="container">© <span id="year"></span> Serenity Beach Villa</div></footer>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const date = params.get("date") || "";
+    const [year, month, day] = date.split("-").map(Number);
+    const parsedDate = new Date(Date.UTC(year, month - 1, day));
+    const today = new Date();
+    const localToday = new Date(today.getTime() - today.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+    const validDate = /^\d{4}-\d{2}-\d{2}$/.test(date)
+      && parsedDate.getUTCFullYear() === year
+      && parsedDate.getUTCMonth() === month - 1
+      && parsedDate.getUTCDate() === day
+      && date >= localToday;
+    const hours = Number(params.get("hours"));
+    const hourlyRate = 500000;
+    const total = hourlyRate * hours;
+    const guestsValue = params.get("guests");
+    const guests = ["1", "2", "3", "4", "5+"].includes(guestsValue) ? guestsValue : "2";
+    const reference = /^SBV-JAM-[A-Z0-9-]{1,32}$/.test(params.get("reference") || "") ? params.get("reference") : "SBV-JAM-PENDING";
+    const validRequest = validDate && Number.isSafeInteger(hours) && hours >= 3 && Number.isSafeInteger(total);
+    const formatPrice = (amount) => new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(amount);
+    document.querySelector("#year").textContent = new Date().getFullYear();
+    document.querySelector("#reference-number").textContent = reference;
+
+    if (validRequest) {
+      document.querySelector("#rental-date").textContent = new Intl.DateTimeFormat("id-ID", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }).format(parsedDate);
+      document.querySelector("#guest-count").textContent = `${guests} tamu`;
+      document.querySelector("#rental-duration").textContent = `${hours} jam`;
+      document.querySelector("#hourly-rate").textContent = `${formatPrice(hourlyRate)} / jam`;
+      document.querySelector("#calculation").textContent = `${hours} jam × ${formatPrice(hourlyRate)}`;
+      document.querySelector("#estimated-total").textContent = formatPrice(total);
+      document.querySelector("#total-amount").textContent = formatPrice(total);
+    } else {
+      document.querySelector("#request-details").hidden = true;
+      document.querySelector("#invalid-request").hidden = false;
+      document.querySelector("#payment-methods").hidden = true;
+    }
+
+    document.querySelector("#payment-form").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const selected = document.querySelector('input[name="payment-method"]:checked');
+      if (!selected || !validRequest) return;
+      const result = document.querySelector("#payment-result");
+      result.textContent = `Metode ${selected.value} dipilih untuk referensi ${reference}. Pembayaran belum diproses. Tim villa perlu mengonfirmasi jadwal dan total akhir sebelum memberikan instruksi pembayaran resmi.`;
+      result.classList.add("is-visible");
+      result.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    });
+
+    document.querySelector("#print-request").addEventListener("click", () => window.print());
+  </script>
+</body>
+</html>

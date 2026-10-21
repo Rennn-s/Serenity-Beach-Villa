@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f6f0">
+  <meta name="description" content="Contoh tampilan ulasan tamu Serenity Beach Villa.">
+  <title>Ulasan Tamu — Serenity Beach Villa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #243d3b;
+      --muted: #687b75;
+      --cream: #f8f6f0;
+      --paper: #fffefa;
+      --sea-dark: #203d3a;
+      --line: #e6e5dc;
+      --serif: "Playfair Display", Georgia, serif;
+      --sans: "DM Sans", Arial, sans-serif;
+      --content: 1160px;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--cream); color: var(--ink); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(var(--content),calc(100% - 64px)); margin-inline: auto; }
+    .announcement { display: flex; min-height: 36px; align-items: center; justify-content: center; gap: 9px; padding: 7px 16px; background: var(--sea-dark); color: #f7f4e9; font-size: 10px; letter-spacing: .13em; text-align: center; text-transform: uppercase; }
+    .announcement span { color: #e7c697; }
+    .site-header { position: sticky; z-index: 2; top: 0; border-bottom: 1px solid rgba(36,61,59,.09); background: rgba(248,246,240,.96); backdrop-filter: blur(14px); }
+    .nav { display: flex; min-height: 76px; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: inline-flex; align-items: center; gap: 11px; }
+    .brand-mark { display: grid; width: 35px; height: 35px; place-items: center; border: 1px solid #ad9873; border-radius: 50%; color: #987a4c; font: 18px var(--serif); }
+    .brand-name { font: 16px var(--serif); }
+    .brand-name small { display: block; margin-top: 3px; color: var(--muted); font: 8px var(--sans); letter-spacing: .2em; text-transform: uppercase; }
+    .back-link { color: #526761; font-size: 10px; letter-spacing: .09em; text-transform: uppercase; }
+    .back-link:hover { color: #b1844c; }
+    .reviews-hero { padding: 72px 0 35px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 10px; color: #9a7950; font-size: 9px; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; }
+    .eyebrow::before { width: 28px; height: 1px; background: currentColor; content: ""; }
+    h1,h2,p { margin-top: 0; }
+    h1 { max-width: 720px; margin: 16px 0 12px; font: 400 clamp(39px,6vw,64px)/1.08 var(--serif); letter-spacing: -.03em; }
+    .intro { max-width: 590px; margin-bottom: 0; color: var(--muted); font-size: 13px; line-height: 1.9; }
+    .sample-notice { margin-top: 24px; padding: 15px 17px; border-left: 2px solid #b5966d; background: #f5f1e8; color: #526761; font-size: 11px; line-height: 1.75; }
+    .review-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 18px; padding: 0 0 84px; }
+    .review-card { display: flex; min-height: 245px; flex-direction: column; align-items: flex-start; padding: 25px; border: 1px solid rgba(36,61,59,.08); background: var(--paper); box-shadow: 0 14px 45px rgba(35,55,48,.06); }
+    .rating { margin-bottom: 17px; color: #a7834d; font-size: 14px; letter-spacing: .12em; }
+    .review-card blockquote { margin: 0 0 24px; color: #455c55; font: 400 18px/1.65 var(--serif); }
+    .guest { margin-top: auto; color: var(--muted); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; }
+    .footer { padding: 23px 0; background: var(--sea-dark); color: #b7c2b8; font-size: 9px; }
+    .footer-row { display: flex; justify-content: space-between; gap: 20px; }
+    @media (max-width:700px) {
+      .container { width: calc(100% - 36px); }
+      .nav { min-height: 66px; }
+      .brand-name { font-size: 14px; }
+      .back-link { max-width: 105px; font-size: 8px; line-height: 1.5; text-align: right; }
+      .reviews-hero { padding: 52px 0 27px; }
+      .review-grid { grid-template-columns: 1fr; gap: 12px; padding-bottom: 60px; }
+      .review-card { min-height: 0; padding: 21px; }
+      .review-card blockquote { margin-bottom: 21px; }
+      .footer-row { flex-direction: column; gap: 7px; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+  <div class="announcement"><span aria-hidden="true">✳</span> A quieter kind of island escape <span aria-hidden="true">✳</span></div>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="index.html" aria-label="Serenity Beach Villa, beranda"><span class="brand-mark" aria-hidden="true">S</span><span class="brand-name">Serenity Beach Villa<small>Private island living</small></span></a>
+      <a class="back-link" href="index.html">Kembali ke beranda</a>
+    </div>
+  </header>
+  <main>
+    <section class="container reviews-hero">
+      <span class="eyebrow">Cerita dari para tamu</span>
+      <h1>Waktu indah yang dibawa pulang.</h1>
+      <p class="intro">Setiap kunjungan punya ceritanya sendiri. Berikut contoh tampilan ulasan untuk halaman ini.</p>
+      <aside class="sample-notice" role="note"><strong>Catatan:</strong> Ulasan di bawah adalah contoh simulasi untuk pratinjau desain, bukan ulasan pelanggan nyata. Ganti dengan ulasan tamu yang sudah mendapat izin sebelum dipublikasikan.</aside>
+    </section>
+    <section class="container review-grid" aria-label="Contoh ulasan tamu">
+      <article class="review-card">
+        <div class="rating" role="img" aria-label="5 dari 5 bintang">★★★★★</div>
+        <blockquote>“Suasananya tenang sekali. Kami menikmati waktu santai di kolam dan senja yang cantik di tepi pantai.”</blockquote>
+        <p class="guest">Serenity Beach Villa · Pasangan</p>
+      </article>
+      <article class="review-card">
+        <div class="rating" role="img" aria-label="5 dari 5 bintang">★★★★★</div>
+        <blockquote>“Villanya nyaman dan terasa privat. Tempat yang pas untuk beristirahat sejenak dari rutinitas.”</blockquote>
+        <p class="guest">Serenity Beach Villa · Liburan keluarga</p>
+      </article>
+      <article class="review-card">
+        <div class="rating" role="img" aria-label="5 dari 5 bintang">★★★★★</div>
+        <blockquote>“Pemandangan laut dan suasana pulau membuat pengalaman menginap kami terasa istimewa.”</blockquote>
+        <p class="guest">Serenity Beach Villa · Perjalanan singkat</p>
+      </article>
+      <article class="review-card">
+        <div class="rating" role="img" aria-label="5 dari 5 bintang">★★★★★</div>
+        <blockquote>“Senang bisa menikmati waktu tanpa terburu-buru. Kolam pribadinya jadi tempat favorit kami untuk bersantai.”</blockquote>
+        <p class="guest">Serenity Beach Villa · Liburan bersama pasangan</p>
+      </article>
+      <article class="review-card">
+        <div class="rating" role="img" aria-label="5 dari 5 bintang">★★★★★</div>
+        <blockquote>“Suasananya terasa tenang dan privat. Kami bisa beristirahat dengan nyaman setelah berkeliling seharian.”</blockquote>
+        <p class="guest">Serenity Beach Villa · Liburan keluarga</p>
+      </article>
+      <article class="review-card">
+        <div class="rating" role="img" aria-label="4 dari 5 bintang">★★★★☆</div>
+        <blockquote>“Tempatnya nyaman untuk melepas penat. Kami paling suka suasana sore yang tenang di sekitar villa.”</blockquote>
+        <p class="guest">Serenity Beach Villa · Staycation</p>
+      </article>
+      <article class="review-card">
+        <div class="rating" role="img" aria-label="5 dari 5 bintang">★★★★★</div>
+        <blockquote>“Liburan singkat yang menyenangkan. Area villa terasa nyaman dan fasilitasnya membuat kami betah.”</blockquote>
+        <p class="guest">Serenity Beach Villa · Perjalanan singkat</p>
+      </article>
+      <article class="review-card">
+        <div class="rating" role="img" aria-label="5 dari 5 bintang">★★★★★</div>
+        <blockquote>“Kami menikmati suasana yang lebih santai dan waktu berkualitas bersama keluarga selama menginap.”</blockquote>
+        <p class="guest">Serenity Beach Villa · Liburan keluarga</p>
+      </article>
+      <article class="review-card">
+        <div class="rating" role="img" aria-label="4 dari 5 bintang">★★★★☆</div>
+        <blockquote>“Pengalaman menginap yang berkesan. Cocok untuk mencari suasana tenang dan menikmati waktu bersama.”</blockquote>
+        <p class="guest">Serenity Beach Villa · Liburan bersama teman</p>
+      </article>
+    </section>
+  </main>
+  <footer class="footer"><div class="container footer-row"><span>© <span id="year"></span> Serenity Beach Villa</span><a href="booking.html">Rencanakan jadwal</a></div></footer>
+  <script>document.querySelector("#year").textContent = new Date().getFullYear();</script>
+</body>
+</html>

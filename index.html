@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f6f0">
+  <meta name="description" content="Serenity Beach Villa — private island escape dengan kolam pribadi, sunset, ocean dining, dan pengalaman pulau.">
+  <title>Serenity Beach Villa — Your Private Island Escape</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #243d3b; --muted: #687b75; --cream: #f8f6f0; --paper: #fffefa;
+      --sea-dark: #203d3a; --line: #e6e5dc; --serif: "Playfair Display", Georgia, serif;
+      --sans: "DM Sans", Arial, sans-serif; --content: 1160px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+    body { margin: 0; background: var(--cream); color: var(--ink); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    button, input, select { font: inherit; }
+    img { display: block; width: 100%; object-fit: cover; }
+    .container { width: min(var(--content), calc(100% - 64px)); margin-inline: auto; }
+    .announcement { display: flex; min-height: 36px; align-items: center; justify-content: center; gap: 9px; padding: 7px 16px; background: var(--sea-dark); color: #f7f4e9; font-size: 10px; letter-spacing: .13em; text-align: center; text-transform: uppercase; }
+    .announcement span, h1 em { color: #e7c697; }
+    .site-header { position: sticky; z-index: 10; top: 0; border-bottom: 1px solid rgba(36,61,59,.09); background: rgba(248,246,240,.96); backdrop-filter: blur(14px); }
+    .nav { display: flex; min-height: 76px; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: inline-flex; flex-shrink: 0; align-items: center; gap: 11px; }
+    .brand-mark { display: grid; width: 35px; height: 35px; place-items: center; border: 1px solid #ad9873; border-radius: 50%; color: #987a4c; font: 18px var(--serif); }
+    .brand-name { font: 16px var(--serif); }
+    .brand-name small { display: block; margin-top: 3px; color: var(--muted); font: 8px var(--sans); letter-spacing: .2em; text-transform: uppercase; }
+    .nav-links { display: flex; align-items: center; gap: clamp(18px,3vw,38px); color: #526761; font-size: 11px; }
+    .nav-links a:hover, .footer-links a:hover { color: #b1844c; }
+    .nav-cta, .button { display: inline-flex; align-items: center; justify-content: center; gap: 10px; border: 0; background: var(--sea-dark); color: white; cursor: pointer; font-size: 10px; font-weight: 600; letter-spacing: .11em; text-transform: uppercase; transition: background .2s, transform .2s; }
+    .nav-cta { min-height: 42px; padding: 0 18px; }
+    .nav-cta:hover, .button:hover { transform: translateY(-1px); background: #345d55; }
+    .menu-toggle { display: none; width: 42px; height: 42px; border: 1px solid var(--line); background: transparent; color: var(--ink); cursor: pointer; font-size: 20px; }
+    .hero { position: relative; min-height: 570px; overflow: hidden; background: #63736e; color: white; }
+    .hero-image { position: absolute; inset: 0; width: 100%; height: 100%; object-position: center 54%; }
+    .hero::after { position: absolute; inset: 0; background: linear-gradient(90deg,rgba(19,39,39,.59),rgba(23,40,39,.31) 46%,rgba(25,37,36,.04)),linear-gradient(0deg,rgba(19,37,36,.24),transparent 48%); content: ""; }
+    .hero-content { position: relative; z-index: 1; display: flex; min-height: 570px; max-width: var(--content); flex-direction: column; align-items: flex-start; justify-content: center; margin: auto; padding: 70px 32px 92px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 9px; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; }
+    .eyebrow::before { width: 28px; height: 1px; background: currentColor; content: ""; }
+    .hero .eyebrow { color: #f0d9b4; }
+    h1,h2,h3,p { margin-top: 0; }
+    h1 { max-width: 640px; margin: 23px 0 15px; font: 400 clamp(48px,7vw,82px)/1.03 var(--serif); letter-spacing: -.035em; }
+    h1 em { font-weight: 400; }
+    .hero-copy { max-width: 390px; margin-bottom: 28px; color: rgba(255,255,255,.87); font-size: 13px; line-height: 1.85; }
+    .button { min-height: 49px; padding: 0 23px; }
+    .button-light { border: 1px solid rgba(255,255,255,.68); background: rgba(255,255,255,.06); color: white; }
+    .button-light:hover { background: rgba(255,255,255,.15); }
+    .hero-caption { position: absolute; z-index: 1; right: max(32px,calc((100vw - var(--content))/2)); bottom: 30px; color: rgba(255,255,255,.8); font-size: 9px; letter-spacing: .13em; text-transform: uppercase; }
+    .booking-wrap { position: relative; z-index: 2; margin-top: -37px; }
+    .booking-prompt { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 22px 27px; border: 1px solid rgba(36,61,59,.08); background: var(--paper); box-shadow: 0 14px 45px rgba(35,55,48,.09); }
+    .booking-prompt strong { display: block; font: 500 19px var(--serif); }
+    .booking-prompt span { display: block; margin-top: 5px; color: var(--muted); font-size: 11px; }
+    .section { padding: 102px 0; }
+    .section-heading { max-width: 570px; margin-bottom: 43px; }
+    .section-heading .eyebrow,.story-copy .eyebrow,.center-heading .eyebrow { color: #9a7950; }
+    .section-heading h2,.center-heading h2 { margin: 17px 0 13px; font: 400 clamp(35px,4.5vw,52px)/1.1 var(--serif); letter-spacing: -.025em; }
+    .section-heading p,.center-heading p { margin-bottom: 0; color: var(--muted); font-size: 13px; line-height: 1.9; }
+    .story-grid { display: grid; grid-template-columns: 1fr 1.04fr; align-items: center; gap: 9%; }
+    .story-image-wrap { position: relative; min-height: 410px; }
+    .story-image { height: 410px; }
+    .image-note { position: absolute; right: -19px; bottom: 20px; width: 166px; padding: 17px 19px; background: #f0e4d0; }
+    .image-note strong { display: block; font: 400 16px var(--serif); }
+    .image-note span { display: block; margin-top: 6px; color: #6a776e; font-size: 9px; line-height: 1.6; }
+    .story-copy h2 { max-width: 450px; margin: 18px 0; font: 400 clamp(36px,4.3vw,52px)/1.13 var(--serif); }
+    .story-copy p { max-width: 465px; color: var(--muted); font-size: 12px; line-height: 2; }
+    .text-link { display: inline-flex; align-items: center; gap: 12px; margin-top: 11px; padding-bottom: 7px; border-bottom: 1px solid #b5966d; color: var(--sea-dark); font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
+    .amenities { background: #f0eee6; }
+    .gallery-section { padding: 90px 0; }
+    .gallery-grid { display: grid; grid-template-columns: repeat(4,1fr); grid-auto-rows: 205px; gap: 13px; }
+    .gallery-card { position: relative; overflow: hidden; background: #536861; color: white; }
+    .gallery-card img { position: absolute; inset: 0; height: 100%; transition: transform .55s; }
+    .gallery-card:hover img { transform: scale(1.045); }
+    .gallery-card::after { position: absolute; inset: 0; background: linear-gradient(0deg,rgba(18,37,36,.78),transparent 58%); content: ""; }
+    .gallery-card-primary { grid-column: span 2; grid-row: span 2; }
+    .gallery-caption { position: absolute; z-index: 1; right: 18px; bottom: 16px; left: 18px; }
+    .gallery-caption span { color: #efd5ac; font-size: 8px; letter-spacing: .16em; text-transform: uppercase; }
+    .gallery-caption h3 { margin: 5px 0 0; font: 400 21px var(--serif); }
+    .gallery-card-primary .gallery-caption h3 { font-size: 27px; }
+    .gallery-note { margin: 14px 0 0; color: var(--muted); font-size: 9px; line-height: 1.7; text-align: center; }
+    .center-heading { max-width: 620px; margin: 0 auto 45px; text-align: center; }
+    .center-heading .eyebrow { justify-content: center; }
+    .center-heading h2 { margin: 16px 0 13px; font-size: clamp(36px,4.4vw,50px); }
+    .center-heading p { font-size: 12px; }
+    .amenity-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+    .amenity-card { position: relative; min-height: 260px; overflow: hidden; color: white; background: #536861; }
+    .amenity-card img { position: absolute; inset: 0; height: 100%; transition: transform .55s; }
+    .amenity-card:hover img { transform: scale(1.045); }
+    .amenity-card::after { position: absolute; inset: 0; background: linear-gradient(0deg,rgba(18,37,36,.82),transparent 68%); content: ""; }
+    .amenity-card-copy { position: absolute; z-index: 1; right: 20px; bottom: 19px; left: 20px; }
+    .amenity-card-copy span { color: #efd5ac; font-size: 8px; letter-spacing: .17em; text-transform: uppercase; }
+    .amenity-card-copy h3 { margin: 6px 0 0; font: 400 22px var(--serif); }
+    .amenity-card-wide { grid-column: span 2; }
+    .experiences { padding-bottom: 104px; }
+    .experience-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .experience-card { display: grid; grid-template-columns: 42% 1fr; min-height: 220px; background: var(--paper); }
+    .experience-card img { height: 100%; min-height: 220px; }
+    .experience-copy { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; padding: 23px; }
+    .experience-copy .eyebrow { color: #9a7950; font-size: 8px; }
+    .experience-copy .eyebrow::before { width: 17px; }
+    .experience-copy h3 { margin: 10px 0 8px; font: 400 23px var(--serif); }
+    .experience-copy p { margin-bottom: 0; color: var(--muted); font-size: 10px; line-height: 1.8; }
+    .addon-list { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 13px; }
+    .addon-list span { padding: 6px 8px; border: 1px solid #e5e5dc; color: #5e716a; font-size: 8px; }
+    .addon-list a { padding: 6px 8px; border: 1px solid #e5e5dc; color: #5e716a; font-size: 8px; transition: background .2s, border-color .2s; }
+    .addon-list a:hover { border-color: #ad9873; background: #f5f0e6; }
+    .affiliate-links + .text-link { margin-top: 15px; font-size: 8px; }
+    .island { position: relative; min-height: 390px; overflow: hidden; color: white; text-align: center; }
+    .island img { position: absolute; inset: 0; height: 100%; }
+    .island::after { position: absolute; inset: 0; background: rgba(23,45,44,.5); content: ""; }
+    .island-content { position: relative; z-index: 1; display: flex; min-height: 390px; flex-direction: column; align-items: center; justify-content: center; padding: 40px 24px; }
+    .island-content .eyebrow { color: #f0d8b1; }
+    .island-content h2 { max-width: 620px; margin: 20px 0 14px; font: 400 clamp(36px,5vw,60px)/1.1 var(--serif); }
+    .island-content p { max-width: 440px; margin-bottom: 23px; color: rgba(255,255,255,.85); font-size: 12px; line-height: 1.85; }
+    .footer { padding: 55px 0 25px; background: var(--sea-dark); color: #f5f1e8; }
+    .footer-main { display: flex; align-items: flex-start; justify-content: space-between; gap: 35px; padding-bottom: 38px; }
+    .footer .brand-mark { border-color: #b8a27d; color: #e8d1ad; }
+    .footer .brand-name small { color: #bdc9bd; }
+    .footer-note { max-width: 270px; margin-top: 15px; color: #c8d0c6; font-size: 10px; line-height: 1.8; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 20px 28px; padding-top: 10px; color: #d2d8ce; font-size: 10px; }
+    .footer-bottom { display: flex; justify-content: space-between; gap: 20px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.15); color: #b7c2b8; font-size: 9px; }
+    @media (min-width:1250px) { .hero-content { padding-right: 0; padding-left: 0; } }
+    @media (max-width:850px) {
+      .container { width: min(var(--content),calc(100% - 42px)); }
+      .nav-links { gap: 16px; font-size: 10px; }
+      .nav-cta { padding: 0 12px; font-size: 9px; }
+      .booking-prompt { padding: 20px; }
+      .story-grid { gap: 6%; }
+      .story-image-wrap,.story-image { min-height: 360px; height: 360px; }
+      .amenity-card { min-height: 225px; }
+      .gallery-grid { grid-auto-rows: 175px; gap: 10px; }
+      .experience-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width:640px) {
+      html { scroll-padding-top: 72px; }
+      .container { width: calc(100% - 36px); }
+      .announcement { min-height: 33px; font-size: 8px; }
+      .nav { min-height: 66px; }
+      .brand-name { font-size: 14px; }
+      .menu-toggle { display: grid; place-items: center; }
+      .nav-cta { display: none; }
+      .nav-links { position: absolute; top: 65px; right: 0; left: 0; display: none; align-items: stretch; gap: 0; padding: 8px 18px 15px; border-bottom: 1px solid var(--line); background: var(--cream); }
+      .nav-links.is-open { display: flex; flex-direction: column; }
+      .nav-links a { padding: 12px 4px; border-bottom: 1px solid var(--line); font-size: 12px; }
+      .hero,.hero-content { min-height: 530px; }
+      .hero-image { object-position: 58% center; }
+      .hero-content { justify-content: flex-end; padding: 40px 22px 91px; }
+      h1 { max-width: 430px; font-size: clamp(49px,12vw,67px); }
+      .hero-copy { max-width: 350px; font-size: 12px; }
+      .hero-caption { right: 18px; bottom: 21px; font-size: 8px; }
+      .booking-wrap { margin-top: -25px; }
+      .booking-prompt { align-items: flex-start; flex-direction: column; gap: 15px; padding: 18px; }
+      .section { padding: 76px 0; }
+      .section-heading { margin-bottom: 31px; }
+      .story-grid { grid-template-columns: 1fr; gap: 35px; }
+      .story-image-wrap,.story-image { min-height: 310px; height: 310px; }
+      .gallery-section { padding: 70px 0; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; grid-auto-rows: 155px; gap: 9px; }
+      .gallery-card-primary { grid-column: span 2; grid-row: span 1; }
+      .gallery-caption { right: 12px; bottom: 12px; left: 12px; }
+      .gallery-caption h3 { font-size: 18px; }
+      .gallery-card-primary .gallery-caption h3 { font-size: 22px; }
+      .image-note { right: -8px; width: 145px; padding: 13px 15px; }
+      .amenity-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .amenity-card { min-height: 190px; }
+      .amenity-card-wide { grid-column: span 2; }
+      .amenity-card-copy { right: 13px; bottom: 14px; left: 13px; }
+      .amenity-card-copy h3 { font-size: 19px; }
+      .center-heading { margin-bottom: 30px; }
+      .experience-card { grid-template-columns: 38% 1fr; min-height: 205px; }
+      .experience-card img { min-height: 205px; }
+      .experience-copy { padding: 16px; }
+      .experience-copy h3 { font-size: 20px; }
+      .island,.island-content { min-height: 360px; }
+      .footer-main { flex-direction: column; gap: 22px; }
+      .footer-links { gap: 16px 20px; }
+      .footer-bottom { flex-direction: column; gap: 8px; }
+    }
+    @media (prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }
+  </style>
+</head>
+<body>
+  <div class="announcement"><span>✳</span> A quieter kind of island escape <span>✳</span></div>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="#home" aria-label="Serenity Beach Villa, beranda"><span class="brand-mark" aria-hidden="true">S</span><span class="brand-name">Serenity Beach Villa<small>Private island living</small></span></a>
+      <nav class="nav-links" id="site-navigation" aria-label="Navigasi utama">
+        <a href="#villa">Villa</a><a href="#galeri">Galeri</a><a href="#fasilitas">Fasilitas</a><a href="#pengalaman">Pengalaman</a><a href="#kontak">Kontak</a>
+      </nav>
+      <a class="nav-cta" href="booking.html">Rencanakan jadwal <span aria-hidden="true">↗</span></a>
+      <button class="menu-toggle" type="button" aria-label="Buka menu" aria-expanded="false" aria-controls="site-navigation">☰</button>
+    </div>
+  </header>
+  <main>
+    <section class="hero" id="home">
+      <img class="hero-image" src="https://images.pexels.com/photos/35428411/pexels-photo-35428411/free-photo-of-lush-green-rice-terraces-in-bali-indonesia.jpeg?auto=compress&cs=tinysrgb&w=2200" alt="Sawah terasering hijau di Bali dikelilingi hutan tropis">
+      <div class="hero-content"><span class="eyebrow">Your own little island</span><h1>Let the sea<br>set you <em>free.</em></h1><p class="hero-copy">Temukan ritme yang lebih pelan di tepi laut. Hari-hari yang terbuka, senja yang panjang, dan waktu yang sepenuhnya milik Anda.</p><a class="button button-light" href="booking.html">Rencanakan jadwal <span aria-hidden="true">→</span></a></div>
+      <span class="hero-caption">Sunset, salt air &amp; slow living</span>
+    </section>
+    <section class="container booking-wrap" id="reservasi" aria-label="Rencanakan kunjungan">
+      <div class="booking-prompt"><div><strong>Mulai rencanakan waktu Anda di pulau.</strong><span>Pilih tanggal, jumlah tamu, dan pengalaman tambahan di halaman booking.</span></div><a class="button" href="booking.html">Rencanakan jadwal <span aria-hidden="true">→</span></a></div>
+    </section>
+    <section class="section" id="villa">
+      <div class="container story-grid">
+        <div class="story-image-wrap"><img class="story-image" src="https://images.pexels.com/photos/8159777/pexels-photo-8159777.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Kolam renang villa di Bali dengan taman tropis" loading="lazy"><div class="image-note"><strong>Made for slowing down</strong><span>Ruang pribadi, alam terbuka, dan laut yang selalu dekat.</span></div></div>
+        <div class="story-copy"><span class="eyebrow">A place to exhale</span><h2>Satu pulau kecil.<br>Semua waktu di dunia.</h2><p>Serenity Beach Villa adalah tempat untuk pulang ke hal-hal sederhana: berenang tanpa terburu-buru, menikmati hidangan di tepi laut, dan menyaksikan langit berubah warna menjelang malam.</p><p>Nikmati satu bangunan villa dengan kolam pribadi dan fasilitas kamar yang dirancang agar Anda merasa nyaman, dekat dengan alam, dan bebas menikmati waktu dengan cara sendiri.</p><a class="text-link" href="#fasilitas">Kenali tempatnya <span aria-hidden="true">→</span></a></div>
+      </div>
+    </section>
+    <section class="section gallery-section" id="galeri">
+      <div class="container">
+        <div class="center-heading">
+          <span class="eyebrow">A closer look inside</span>
+          <h2>Ruang untuk merasa di rumah.</h2>
+          <p>Lihat lebih dekat sudut-sudut villa: tempat beristirahat, menyegarkan diri, menyiapkan hidangan, dan menikmati waktu bersama.</p>
+        </div>
+        <div class="gallery-grid" aria-label="Galeri area villa">
+          <article class="gallery-card gallery-card-primary">
+            <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=1200&q=85" alt="Kamar tidur villa yang nyaman dengan tempat tidur besar" loading="lazy">
+            <div class="gallery-caption"><span>Rest &amp; recharge</span><h3>Bedroom</h3></div>
+          </article>
+          <article class="gallery-card">
+            <img src="https://images.pexels.com/photos/2480608/pexels-photo-2480608.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Villa tropis Bali dengan kolam privat dan tanaman rimbun" loading="lazy">
+            <div class="gallery-caption"><span>Take a dip</span><h3>Kolam pribadi</h3></div>
+          </article>
+          <article class="gallery-card">
+            <img src="https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=800&q=82" alt="Kamar mandi villa bernuansa modern dan natural" loading="lazy">
+            <div class="gallery-caption"><span>A moment to unwind</span><h3>Bathroom</h3></div>
+          </article>
+          <article class="gallery-card">
+            <img src="https://images.pexels.com/photos/5028846/pexels-photo-5028846.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Villa tropis Bali dengan latar pegunungan dan pepohonan" loading="lazy">
+            <div class="gallery-caption"><span>Your island hideaway</span><h3>Villa</h3></div>
+          </article>
+          <article class="gallery-card">
+            <img src="https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?auto=format&fit=crop&w=800&q=82" alt="Dapur dengan countertop luas, kompor, dan lemari penyimpanan" loading="lazy">
+            <div class="gallery-caption"><span>Gather around</span><h3>Kitchen</h3></div>
+          </article>
+          <article class="gallery-card">
+            <img src="https://images.pexels.com/photos/33709937/pexels-photo-33709937/free-photo-of-modern-interior-design-living-room-in-bali-villa.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Ruang keluarga modern di villa Bali dengan dekorasi tropis" loading="lazy">
+            <div class="gallery-caption"><span>Slow moments together</span><h3>Living room</h3></div>
+          </article>
+          <article class="gallery-card">
+            <img src="https://images.pexels.com/photos/32314301/pexels-photo-32314301/free-photo-of-serene-beach-walk-at-sunset-in-bali-indonesia.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Pantai Bali yang tenang saat matahari terbenam" loading="lazy">
+            <div class="gallery-caption"><span>Golden hour by the sea</span><h3>Beach sunset</h3></div>
+          </article>
+          <article class="gallery-card">
+            <img src="foto/beach-sunset.png" alt="Suasana sunset view di pantai Bali dengan payung dan lampu hangat" loading="lazy">
+            <div class="gallery-caption"><span>Evenings to remember</span><h3>Sunset view</h3></div>
+          </article>
+          <article class="gallery-card">
+            <img src="foto/ocean-view.png" alt="Pemandangan laut berombak saat matahari terbenam dari tepi pantai" loading="lazy">
+            <div class="gallery-caption"><span>Wake up by the water</span><h3>Ocean view</h3></div>
+          </article>
+        </div>
+        <p class="gallery-note">Foto merupakan ilustrasi referensi suasana; tampilan unit aktual dapat berbeda.</p>
+      </div>
+    </section>
+    <section class="section amenities" id="fasilitas">
+      <div class="container">
+        <div class="center-heading"><span class="eyebrow">Small details, good days</span><h2>Semua yang Anda<br>butuhkan, dekat.</h2><p>Dari pagi yang tenang sampai matahari tenggelam, nikmati fasilitas villa dan suasana pulau tanpa perlu terburu-buru ke mana-mana.</p></div>
+        <div class="amenity-grid">
+          <article class="amenity-card"><img src="https://images.pexels.com/photos/15046787/pexels-photo-15046787/free-photo-of-restaurant-patio-overlooking-sea.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Restoran tepi laut di Bali saat senja" loading="lazy"><div class="amenity-card-copy"><span>Something delicious</span><h3>Restoran</h3></div></article>
+          <article class="amenity-card"><img src="https://images.pexels.com/photos/32314301/pexels-photo-32314301/free-photo-of-serene-beach-walk-at-sunset-in-bali-indonesia.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Senja di pantai Bali dengan suasana tropis" loading="lazy"><div class="amenity-card-copy"><span>Golden hour, every day</span><h3>Sunset pantai</h3></div></article>
+          <article class="amenity-card"><img src="https://images.pexels.com/photos/2480608/pexels-photo-2480608.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Kolam pribadi di depan villa tropis Bali dengan pohon palem" loading="lazy"><div class="amenity-card-copy"><span>Your own little oasis</span><h3>Kolam pribadi</h3></div></article>
+          <article class="amenity-card"><img src="https://images.pexels.com/photos/35866502/pexels-photo-35866502/free-photo-of-refreshing-tropical-cocktail-with-fresh-fruits.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Koktail tropis untuk menikmati suasana bar" loading="lazy"><div class="amenity-card-copy"><span>Stay for one more</span><h3>Bar</h3></div></article>
+          <article class="amenity-card amenity-card-wide"><img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1400&q=82" alt="Ruang gym dengan peralatan olahraga" loading="lazy"><div class="amenity-card-copy"><span>Move at your own pace</span><h3>Gym &amp; fasilitas kamar</h3></div></article>
+        </div>
+      </div>
+    </section>
+    <section class="section experiences" id="pengalaman">
+      <div class="container">
+        <div class="center-heading"><span class="eyebrow">Make it your own</span><h2>Tambah sedikit<br>sesuatu yang istimewa.</h2><p>Pilih pengalaman tambahan atau temukan aktivitas pulau favorit Anda. Detail dan ketersediaan dapat dikonfirmasi saat merencanakan kunjungan.</p></div>
+        <div class="experience-grid" id="affiliate">
+          <article class="experience-card"><img src="https://images.pexels.com/photos/8159777/pexels-photo-8159777.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Kolam renang villa Bali untuk menikmati waktu santai" loading="lazy"><div class="experience-copy"><span class="eyebrow">A little extra care</span><h3>Tambahan untuk villa</h3><p>Lengkapi waktu istirahat Anda dengan sentuhan yang lebih personal.</p><div class="addon-list"><span>Antar jemput bandara</span><span>Floating breakfast</span><span>Private spa</span><span>Sewa per jam</span></div></div></article>
+          <article class="experience-card"><img src="https://images.pexels.com/photos/35428411/pexels-photo-35428411/free-photo-of-lush-green-rice-terraces-in-bali-indonesia.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Sawah terasering hijau di Bali untuk dijelajahi" loading="lazy"><div class="experience-copy"><span class="eyebrow">Out there, waiting</span><h3>Affiliate &amp; jelajahi pulau</h3><p>Temukan aktivitas dari partner affiliate lokal untuk menemani petualangan Anda.</p><div class="addon-list affiliate-links"><a href="affiliate.html#rental-motor">Rental motor</a><a href="affiliate.html#field-trip">Field trip</a><a href="affiliate.html#entertainment">Entertainment</a><a href="affiliate.html#ocean-experience">Ocean experience</a></div><a class="text-link" href="affiliate.html">Lihat semua pilihan affiliate <span aria-hidden="true">→</span></a></div></article>
+        </div>
+        <div class="center-heading experience-note"><p><strong>Private spa:</strong> tersedia pilihan single atau couple. <strong>Ocean experience:</strong> snorkeling, diving, surfing, dan jetski.</p></div>
+      </div>
+    </section>
+    <section class="island" id="kontak">
+      <img src="https://images.pexels.com/photos/32314301/pexels-photo-32314301/free-photo-of-serene-beach-walk-at-sunset-in-bali-indonesia.jpeg?auto=compress&cs=tinysrgb&w=2000" alt="Senja di pantai Bali dengan suasana tropis yang tenang" loading="lazy">
+      <div class="island-content"><span class="eyebrow">The island is calling</span><h2>Maybe this is your kind of nowhere.</h2><p>Mulai rencanakan waktu Anda di Serenity Beach Villa. Kami menantikan cerita yang akan Anda bawa pulang.</p><a class="button button-light" href="booking.html">Rencanakan jadwal <span aria-hidden="true">→</span></a></div>
+    </section>
+  </main>
+  <footer class="footer">
+    <div class="container"><div class="footer-main">
+      <div><a class="brand" href="#home"><span class="brand-mark" aria-hidden="true">S</span><span class="brand-name">Serenity Beach Villa<small>Private island living</small></span></a><p class="footer-note">Tempat untuk menarik napas, mendengar laut, dan menikmati hari dengan ritme Anda sendiri.</p></div>
+      <nav class="footer-links" aria-label="Navigasi footer"><a href="#villa">Villa</a><a href="#galeri">Galeri</a><a href="#fasilitas">Fasilitas</a><a href="#pengalaman">Pengalaman</a><a href="review.html">Ulasan</a><a href="booking.html">Reservasi</a></nav>
+    </div><div class="footer-bottom"><span>© <span id="year"></span> Serenity Beach Villa</span><span>A private island state of mind.</span></div></div>
+  </footer>
+  <script>
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navigation = document.querySelector(".nav-links");
+    menuToggle.addEventListener("click", () => {
+      const isOpen = menuToggle.getAttribute("aria-expanded") === "true";
+      menuToggle.setAttribute("aria-expanded", String(!isOpen));
+      menuToggle.setAttribute("aria-label", isOpen ? "Buka menu" : "Tutup menu");
+      navigation.classList.toggle("is-open", !isOpen);
+    });
+    navigation.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => {
+      navigation.classList.remove("is-open");
+      menuToggle.setAttribute("aria-expanded", "false");
+      menuToggle.setAttribute("aria-label", "Buka menu");
+    }));
+    document.querySelector("#year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
