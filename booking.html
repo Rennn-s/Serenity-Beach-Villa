@@ -261,8 +261,8 @@
               <label class="extra-option"><input type="checkbox" name="extras" value="Private spa couple" aria-label="Private spa couple" aria-describedby="help-spa-couple"><span class="extra-option-copy">Private spa — couple<small>Rp250.000 / sesi (2 orang)</small></span><span class="extra-help" id="help-spa-couple" role="tooltip">Satu sesi untuk dua orang seharga Rp250.000.</span></label>
             </div>
             <div class="extra-quantity" id="spa-single-quantity-field" hidden>
-              <label for="spa-single-people">Jumlah orang untuk sesi spa single</label>
-              <input id="spa-single-people" type="number" min="1" step="1" value="1" inputmode="numeric" disabled>
+              <label for="spa-single-people">Jumlah orang (Rp150.000 per orang)</label>
+              <input id="spa-single-people" name="spa-single-people" type="number" min="1" step="1" value="1" inputmode="numeric" aria-label="Jumlah orang untuk private spa single" disabled>
             </div>
           </div>
           <button class="submit-button" id="booking-submit" type="submit">Lanjut ke invoice <span aria-hidden="true">→</span></button>
@@ -363,10 +363,13 @@
       if (isHourlyBooking()) {
         extrasEstimateOutput.hidden = true;
         const hours = Number(rentalHours.value);
-        if (!arrival.value || !Number.isSafeInteger(hours) || hours < 3 || !Number.isSafeInteger(hourlyRate * hours)) {
+        const subtotal = hourlyRate * hours;
+        const totalWithTax = subtotal + Math.round(subtotal * 0.1);
+        if (!arrival.value || arrival.value < localToday || !Number.isSafeInteger(hours) || hours < 3
+          || !Number.isSafeInteger(subtotal) || !Number.isSafeInteger(totalWithTax)) {
           stayTotalOutput.textContent = "Pilih tanggal dan lama sewa (minimal 3 jam)";
           availableUnits = null;
-          availabilityOutput.textContent = "Isi tanggal serta durasi sewa untuk melihat status permintaan.";
+          availabilityOutput.textContent = "Pilih tanggal hari ini atau setelahnya dan isi durasi minimal 3 jam.";
           availabilityOutput.classList.remove("is-unavailable");
           return;
         }
@@ -439,8 +442,17 @@
       event.preventDefault();
       if (isHourlyBooking()) {
         const hours = Number(rentalHours.value);
-        if (!arrival.value || !Number.isSafeInteger(hours) || hours < 3 || !Number.isSafeInteger(hourlyRate * hours)) {
+        const subtotal = hourlyRate * hours;
+        const totalWithTax = subtotal + Math.round(subtotal * 0.1);
+        if (!arrival.value || arrival.value < localToday) {
+          arrival.setCustomValidity("Pilih tanggal sewa hari ini atau setelahnya.");
+          arrival.reportValidity();
+          arrival.setCustomValidity("");
+          return;
+        }
+        if (!Number.isSafeInteger(hours) || hours < 3 || !Number.isSafeInteger(subtotal) || !Number.isSafeInteger(totalWithTax)) {
           rentalHours.setCustomValidity("Durasi sewa minimum adalah 3 jam.");
+          if (hours >= 3) rentalHours.setCustomValidity("Durasi sewa menghasilkan total yang terlalu besar.");
           rentalHours.reportValidity();
           rentalHours.setCustomValidity("");
           return;
