@@ -268,10 +268,10 @@
         const isPaid = localStorage.getItem(paymentStatusKey) === "paid";
         if (isPaid) {
           const status = document.querySelector("#invoice-status");
-          status.textContent = "LUNAS (SIMULASI)";
+          status.textContent = "LUNAS ";
           status.classList.add("is-paid");
-          document.querySelector("#payment-status").textContent = "Lunas (simulasi)";
-          document.querySelector("#invoice-total-label").textContent = "Total dibayar (simulasi)";
+          document.querySelector("#payment-status").textContent = "Lunas";
+          document.querySelector("#invoice-total-label").textContent = "Total dibayar termasuk PBJT";
           document.querySelector("#invoice-intro").textContent = "Pembayaran simulasi untuk invoice ini telah dikonfirmasi. Status ini bukan verifikasi transaksi sungguhan.";
           document.querySelector("#payment-link").hidden = true;
         }
