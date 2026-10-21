@@ -50,6 +50,8 @@
     .invoice-number strong { color: var(--ink); }
     .status { display: inline-flex; align-items: center; gap: 7px; margin: 17px 0 0; padding: 8px 11px; border: 1px solid #e9ddc5; background: #f6f0e4; color: #795e35; font-size: 9px; font-weight: 700; letter-spacing: .07em; }
     .status::before { width: 7px; height: 7px; border-radius: 50%; background: #b68b4b; content: ""; }
+    .status.is-paid { border-color: #d1e2d5; background: #edf5ed; color: #315d42; }
+    .status.is-paid::before { background: #4d9660; }
     .details { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding: 19px 0; }
     .detail span { display: block; margin-bottom: 4px; color: var(--muted); font-size: 9px; }
     .detail strong { font-size: 11px; font-weight: 600; }
@@ -61,10 +63,6 @@
     .total-row { display: flex; align-items: center; justify-content: space-between; gap: 15px; padding-top: 19px; }
     .total-row span { font-size: 11px; font-weight: 700; }
     .total-row strong { color: var(--sea-dark); font-size: 22px; }
-    .virtual-account { margin-top: 16px; padding: 13px 14px; border: 1px solid var(--line); background: #f8f6f0; }
-    .virtual-account span { display: block; margin-bottom: 5px; color: var(--muted); font-size: 9px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
-    .virtual-account strong { display: block; color: var(--sea-dark); font-size: 17px; letter-spacing: .12em; }
-    .virtual-account small { display: block; margin-top: 6px; color: var(--muted); font-size: 9px; line-height: 1.6; }
     .paid-info { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 22px; padding-top: 17px; border-top: 1px solid var(--line); }
     .paid-info span { display: block; margin-bottom: 4px; color: var(--muted); font-size: 9px; }
     .paid-info strong { font-size: 10px; font-weight: 600; }
@@ -106,32 +104,28 @@
     <section class="page-heading">
       <span class="eyebrow">Rangkuman invoice</span>
       <h1>Terima kasih.</h1>
-      <p>Berikut estimasi rincian pemesanan Serenity Beach Villa. Reservasi dan pembayaran tetap perlu dikonfirmasi oleh tim villa.</p>
+      <p id="invoice-intro">Berikut estimasi rincian pemesanan Serenity Beach Villa. Reservasi dan pembayaran tetap perlu dikonfirmasi oleh tim villa.</p>
     </section>
     <section class="invoice" id="invoice" aria-labelledby="invoice-heading" hidden>
       <div class="invoice-heading">
         <div><h2 id="invoice-heading">Serenity Beach Villa</h2><p>Ubud, Bali · Invoice pembayaran</p></div>
         <div class="invoice-number">NO. INVOICE<br><strong id="invoice-number">-</strong></div>
       </div>
-      <div class="status">MENUNGGU KONFIRMASI</div>
+      <div class="status" id="invoice-status">MENUNGGU KONFIRMASI</div>
       <div class="details" id="booking-details"></div>
       <table class="line-items">
         <thead><tr><th>Deskripsi</th><th>Jumlah</th></tr></thead>
         <tbody id="invoice-items"></tbody>
       </table>
-      <div class="total-row"><span>Total estimasi termasuk PBJT</span><strong id="invoice-total">-</strong></div>
-      <div class="virtual-account">
-        <span>Kode pembayaran</span>
-        <strong id="virtual-account-number"></strong>
-        <small>Kode untuk pembayaran</small>
-      </div>
+      <div class="total-row"><span id="invoice-total-label">Total estimasi termasuk PBJT</span><strong id="invoice-total">-</strong></div>
       <div class="paid-info">
         <div><span>Metode pembayaran yang dipilih</span><strong id="payment-method">-</strong></div>
-        <div><span>Status pembayaran</span><strong>Belum dibayar</strong></div>
+        <div><span>Status pembayaran</span><strong id="payment-status">Belum dibayar</strong></div>
         <div><span>Tanggal invoice</span><strong id="invoice-date">-</strong></div>
         <div><span>Pajak</span><strong>PBJT 10%</strong></div>
       </div>
       <div class="actions">
+        <a class="button" id="payment-link" href="konfirmasi-pembayaran.html">Lanjut pembayaran <span aria-hidden="true">→</span></a>
         <button class="button" id="print-invoice" type="button">Cetak invoice</button>
         <a class="button" href="index.html">Kembali ke beranda</a>
       </div>
@@ -262,7 +256,26 @@
         const virtualAccountDigits = [...crypto.getRandomValues(new Uint8Array(16))]
           .map((byte) => String(byte % 10))
           .join("");
-        document.querySelector("#virtual-account-number").textContent = virtualAccountDigits;
+        const paymentUrl = new URL("konfirmasi-pembayaran.html", window.location.href);
+        const invoiceUrl = new URL("invoice.html", window.location.href);
+        params.forEach((value, key) => paymentUrl.searchParams.append(key, value));
+        params.forEach((value, key) => invoiceUrl.searchParams.append(key, value));
+        paymentUrl.searchParams.set("invoice", invoiceNumber);
+        paymentUrl.searchParams.set("amount", String(total));
+        paymentUrl.searchParams.set("paymentMethod", paymentMethod);
+        paymentUrl.searchParams.set("virtualAccount", virtualAccountDigits);
+        const paymentStatusKey = `serenity-payment-status:${invoiceNumber}`;
+        const isPaid = localStorage.getItem(paymentStatusKey) === "paid";
+        if (isPaid) {
+          const status = document.querySelector("#invoice-status");
+          status.textContent = "LUNAS (SIMULASI)";
+          status.classList.add("is-paid");
+          document.querySelector("#payment-status").textContent = "Lunas (simulasi)";
+          document.querySelector("#invoice-total-label").textContent = "Total dibayar (simulasi)";
+          document.querySelector("#invoice-intro").textContent = "Pembayaran simulasi untuk invoice ini telah dikonfirmasi. Status ini bukan verifikasi transaksi sungguhan.";
+          document.querySelector("#payment-link").hidden = true;
+        }
+        document.querySelector("#payment-link").href = paymentUrl.href;
         setDetails(bookingDetails);
         document.querySelector("#invoice").hidden = false;
       }
