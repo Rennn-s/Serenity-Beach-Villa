@@ -53,6 +53,8 @@
     .detail strong { font-size: 11px; font-weight: 600; }
     .price-row { display: flex; align-items: center; justify-content: space-between; gap: 15px; padding: 15px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); color: #526761; font-size: 11px; }
     .price-row strong { color: var(--ink); }
+    .tax-row { display: flex; align-items: center; justify-content: space-between; gap: 15px; padding: 12px 0; border-bottom: 1px solid var(--line); color: #526761; font-size: 11px; }
+    .tax-row strong { color: var(--ink); }
     .total-row { display: flex; align-items: center; justify-content: space-between; gap: 15px; padding-top: 18px; }
     .total-row span { font-size: 11px; font-weight: 700; }
     .total-row strong { color: var(--sea-dark); font-size: 22px; }
@@ -130,7 +132,8 @@
           <div class="detail"><span>Tarif estimasi</span><strong id="hourly-rate">-</strong></div>
         </div>
         <div class="price-row"><span id="calculation">Perhitungan estimasi</span><strong id="estimated-total">-</strong></div>
-        <div class="total-row"><span>Estimasi biaya sewa</span><strong id="total-amount">-</strong></div>
+        <div class="tax-row"><span>PBJT (10%)</span><strong id="pbjt-amount">-</strong></div>
+        <div class="total-row"><span>Estimasi biaya sewa termasuk PBJT</span><strong id="total-amount">-</strong></div>
       </div>
       <div class="invalid" id="invalid-request" role="alert" hidden>Detail permintaan sewa tidak valid. Silakan kembali ke halaman booking dan masukkan tanggal serta durasi minimal 3 jam.</div>
       <section class="methods" id="payment-methods" aria-labelledby="methods-heading">
@@ -193,7 +196,9 @@
       && date >= localToday;
     const hours = Number(params.get("hours"));
     const hourlyRate = 500000;
-    const total = hourlyRate * hours;
+    const subtotal = hourlyRate * hours;
+    const pbjt = Math.round(subtotal * 0.1);
+    const total = subtotal + pbjt;
     const guestsValue = params.get("guests");
     const guests = ["1", "2", "3", "4", "5+"].includes(guestsValue) ? guestsValue : "2";
     const reference = /^SBV-JAM-[A-Z0-9-]{1,32}$/.test(params.get("reference") || "") ? params.get("reference") : "SBV-JAM-PENDING";
@@ -208,7 +213,8 @@
       document.querySelector("#rental-duration").textContent = `${hours} jam`;
       document.querySelector("#hourly-rate").textContent = `${formatPrice(hourlyRate)} / jam`;
       document.querySelector("#calculation").textContent = `${hours} jam × ${formatPrice(hourlyRate)}`;
-      document.querySelector("#estimated-total").textContent = formatPrice(total);
+      document.querySelector("#estimated-total").textContent = formatPrice(subtotal);
+      document.querySelector("#pbjt-amount").textContent = formatPrice(pbjt);
       document.querySelector("#total-amount").textContent = formatPrice(total);
     } else {
       document.querySelector("#request-details").hidden = true;
@@ -220,10 +226,14 @@
       event.preventDefault();
       const selected = document.querySelector('input[name="payment-method"]:checked');
       if (!selected || !validRequest) return;
-      const result = document.querySelector("#payment-result");
-      result.textContent = `Metode ${selected.value} dipilih untuk referensi ${reference}. Pembayaran belum diproses. Tim villa perlu mengonfirmasi jadwal dan total akhir sebelum memberikan instruksi pembayaran resmi.`;
-      result.classList.add("is-visible");
-      result.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      const invoiceUrl = new URL("invoice.html", window.location.href);
+      invoiceUrl.searchParams.set("type", "hourly");
+      invoiceUrl.searchParams.set("date", date);
+      invoiceUrl.searchParams.set("hours", String(hours));
+      invoiceUrl.searchParams.set("guests", guests);
+      invoiceUrl.searchParams.set("reference", reference);
+      invoiceUrl.searchParams.set("paymentMethod", selected.value);
+      window.location.href = invoiceUrl.href;
     });
 
     document.querySelector("#print-request").addEventListener("click", () => window.print());

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f6f0">
+  <meta name="description" content="Invoice final simulasi Serenity Beach Villa dengan rincian biaya dan PBJT.">
+  <title>Invoice Final — Serenity Beach Villa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #243d3b;
+      --muted: #687b75;
+      --cream: #f8f6f0;
+      --paper: #fffefa;
+      --sea-dark: #203d3a;
+      --line: #e6e5dc;
+      --serif: "Playfair Display", Georgia, serif;
+      --sans: "DM Sans", Arial, sans-serif;
+      --content: 780px;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--cream); color: var(--ink); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(var(--content),calc(100% - 40px)); margin-inline: auto; }
+    .announcement { display: flex; min-height: 36px; align-items: center; justify-content: center; gap: 9px; padding: 7px 16px; background: var(--sea-dark); color: #f7f4e9; font-size: 10px; letter-spacing: .13em; text-align: center; text-transform: uppercase; }
+    .announcement span { color: #e7c697; }
+    .site-header { border-bottom: 1px solid rgba(36,61,59,.09); background: rgba(248,246,240,.96); }
+    .nav { display: flex; min-height: 72px; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { display: inline-flex; align-items: center; gap: 11px; }
+    .brand-mark { display: grid; width: 35px; height: 35px; place-items: center; border: 1px solid #ad9873; border-radius: 50%; color: #987a4c; font: 18px var(--serif); }
+    .brand-name { font: 16px var(--serif); }
+    .brand-name small { display: block; margin-top: 3px; color: var(--muted); font: 8px var(--sans); letter-spacing: .2em; text-transform: uppercase; }
+    main { padding: 50px 0 78px; }
+    .page-heading { margin-bottom: 21px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 10px; color: #9a7950; font-size: 9px; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; }
+    .eyebrow::before { width: 28px; height: 1px; background: currentColor; content: ""; }
+    h1,h2,p { margin-top: 0; }
+    h1 { margin: 13px 0 8px; font: 400 clamp(35px,6vw,52px)/1.1 var(--serif); }
+    .page-heading p { margin-bottom: 0; color: var(--muted); font-size: 11px; line-height: 1.75; }
+    .notice { margin-bottom: 17px; padding: 14px 16px; border-left: 2px solid #b5966d; background: #f5f1e8; color: #526761; font-size: 10px; line-height: 1.75; }
+    .notice strong { color: var(--ink); }
+    .invoice { padding: 27px; border: 1px solid rgba(36,61,59,.09); background: var(--paper); box-shadow: 0 12px 35px rgba(35,55,48,.06); }
+    .invoice-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; padding-bottom: 18px; border-bottom: 1px solid var(--line); }
+    .invoice-heading h2 { margin-bottom: 4px; font: 400 25px var(--serif); }
+    .invoice-heading p { margin-bottom: 0; color: var(--muted); font-size: 10px; }
+    .invoice-number { color: var(--muted); font-size: 9px; line-height: 1.65; text-align: right; }
+    .invoice-number strong { color: var(--ink); }
+    .status { display: inline-flex; align-items: center; gap: 7px; margin: 17px 0 0; padding: 8px 11px; border: 1px solid #d1e2d5; background: #edf5ed; color: #315d42; font-size: 9px; font-weight: 700; letter-spacing: .07em; }
+    .status::before { width: 7px; height: 7px; border-radius: 50%; background: #4d9660; content: ""; }
+    .details { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding: 19px 0; }
+    .detail span { display: block; margin-bottom: 4px; color: var(--muted); font-size: 9px; }
+    .detail strong { font-size: 11px; font-weight: 600; }
+    .line-items { width: 100%; border-collapse: collapse; text-align: left; }
+    .line-items th { padding: 10px 0; border-bottom: 1px solid var(--line); color: var(--muted); font-size: 9px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+    .line-items td { padding: 13px 0; border-bottom: 1px solid var(--line); color: #526761; font-size: 10px; line-height: 1.65; vertical-align: top; }
+    .line-items th:last-child,.line-items td:last-child { text-align: right; white-space: nowrap; }
+    .tax-line td { color: var(--ink); font-weight: 600; }
+    .total-row { display: flex; align-items: center; justify-content: space-between; gap: 15px; padding-top: 19px; }
+    .total-row span { font-size: 11px; font-weight: 700; }
+    .total-row strong { color: var(--sea-dark); font-size: 22px; }
+    .paid-info { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 22px; padding-top: 17px; border-top: 1px solid var(--line); }
+    .paid-info span { display: block; margin-bottom: 4px; color: var(--muted); font-size: 9px; }
+    .paid-info strong { font-size: 10px; font-weight: 600; }
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+    .button { display: inline-flex; min-height: 44px; align-items: center; justify-content: center; gap: 9px; padding: 0 16px; border: 1px solid var(--line); background: transparent; color: var(--ink); cursor: pointer; font: 700 9px var(--sans); }
+    .button:hover { background: #f3f1e9; }
+    .invalid { padding: 17px; border: 1px solid #ecd6cc; background: #fbf1ed; color: #874f3f; font-size: 12px; line-height: 1.7; }
+    [hidden] { display: none !important; }
+    .footer { padding: 23px 0; background: var(--sea-dark); color: #b7c2b8; font-size: 9px; }
+    @media (max-width:480px) {
+      .container { width: calc(100% - 32px); }
+      .nav { min-height: 65px; }
+      .brand-name { font-size: 14px; }
+      main { padding: 37px 0 58px; }
+      .invoice { padding: 19px 16px; }
+      .invoice-heading { flex-direction: column; }
+      .invoice-number { text-align: left; }
+      .actions { flex-direction: column; }
+      .button { width: 100%; }
+    }
+    @media print {
+      body { background: white; }
+      .announcement,.site-header,.notice,.actions,.footer { display: none; }
+      main { padding: 0; }
+      .container { width: 100%; }
+      .invoice { border: 0; box-shadow: none; }
+    }
+    @media (prefers-reduced-motion: reduce) { *,*::before,*::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }
+  </style>
+</head>
+<body>
+  <div class="announcement"><span aria-hidden="true">✳</span> Serenity Beach Villa <span aria-hidden="true">✳</span></div>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="index.html" aria-label="Serenity Beach Villa, beranda"><span class="brand-mark" aria-hidden="true">S</span><span class="brand-name">Serenity Beach Villa<small>Private island living</small></span></a>
+    </div>
+  </header>
+  <main class="container">
+    <section class="page-heading">
+      <span class="eyebrow">Invoice final</span>
+      <h1>Terima kasih.</h1>
+      <p>Berikut rincian akhir pemesanan Serenity Beach Villa.</p>
+    </section>
+    <section class="invoice" id="invoice" aria-labelledby="invoice-heading" hidden>
+      <div class="invoice-heading">
+        <div><h2 id="invoice-heading">Serenity Beach Villa</h2><p>Ubud, Bali · Invoice pembayaran</p></div>
+        <div class="invoice-number">NO. INVOICE<br><strong id="invoice-number">-</strong></div>
+      </div>
+      <div class="status">LUNAS</div>
+      <div class="details" id="booking-details"></div>
+      <table class="line-items">
+        <thead><tr><th>Deskripsi</th><th>Jumlah</th></tr></thead>
+        <tbody id="invoice-items"></tbody>
+      </table>
+      <div class="total-row"><span>Total dibayar</span><strong id="invoice-total">-</strong></div>
+      <div class="paid-info">
+        <div><span>Metode pembayaran yang dipilih</span><strong id="payment-method">-</strong></div>
+        <div><span>Status pembayaran</span><strong>Lunas</strong></div>
+        <div><span>Tanggal invoice</span><strong id="invoice-date">-</strong></div>
+        <div><span>Pajak</span><strong>PBJT 10%</strong></div>
+      </div>
+      <div class="actions">
+        <button class="button" id="print-invoice" type="button">Cetak invoice</button>
+        <a class="button" href="index.html">Kembali ke beranda</a>
+      </div>
+    </section>
+    <div class="invalid" id="invalid-invoice" role="alert" hidden>Data invoice tidak valid atau belum lengkap. Silakan kembali ke booking, periksa tanggal dan durasi, lalu pilih metode pembayaran.</div>
+  </main>
+  <footer class="footer"><div class="container">© <span id="year"></span> Serenity Beach Villa</div></footer>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const type = params.get("type");
+    const guestsValue = params.get("guests");
+    const guests = ["1", "2", "3", "4", "5+"].includes(guestsValue) ? guestsValue : "2";
+    const paymentMethods = [
+      "Transfer Bank BCA", "Transfer Bank Mandiri", "Transfer Bank BNI",
+      "GoPay", "OVO", "DANA", "Visa", "American Express", "Mastercard", "ATM", "Retail"
+    ];
+    const paymentMethod = paymentMethods.includes(params.get("paymentMethod")) ? params.get("paymentMethod") : "";
+    const hourlyRate = 500000;
+    const nightlyRate = 1000000;
+    const taxRate = 0.1;
+    const extraDetails = {
+      "Antar jemput bandara": { rate: 120000, unit: "per booking" },
+      "Floating breakfast": { rate: 300000, unit: "per pesanan" },
+      "Private spa single": { rate: 150000, unit: "per orang" },
+      "Private spa couple": { rate: 250000, unit: "per sesi (2 orang)" }
+    };
+    const formatPrice = (amount) => new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(amount);
+    const validDate = (value) => {
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(value || "")) return false;
+      const [year, month, day] = value.split("-").map(Number);
+      const parsed = new Date(Date.UTC(year, month - 1, day));
+      return parsed.getUTCFullYear() === year && parsed.getUTCMonth() === month - 1 && parsed.getUTCDate() === day;
+    };
+    const toUtcDate = (value) => Date.parse(`${value}T00:00:00Z`);
+    const formatDate = (value) => new Intl.DateTimeFormat("id-ID", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }).format(new Date(toUtcDate(value)));
+    const setDetails = (details) => {
+      document.querySelector("#booking-details").innerHTML = details.map(([label, value]) => `<div class="detail"><span>${label}</span><strong>${value}</strong></div>`).join("");
+    };
+    const showInvalid = () => { document.querySelector("#invalid-invoice").hidden = false; };
+    let invoiceNumber = "";
+    let subtotal = 0;
+    let invoiceRows = [];
+    let bookingDetails = [];
+
+    document.querySelector("#year").textContent = new Date().getFullYear();
+
+    if (type === "hourly") {
+      const date = params.get("date") || "";
+      const hours = Number(params.get("hours"));
+      const [year, month, day] = date.split("-").map(Number);
+      const parsedDate = new Date(Date.UTC(year, month - 1, day));
+      const today = new Date();
+      const localToday = new Date(today.getTime() - today.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+      const isValidDate = validDate(date) && date >= localToday;
+      const baseAmount = hourlyRate * hours;
+      const validRequest = isValidDate && Number.isSafeInteger(hours) && hours >= 3
+        && Number.isSafeInteger(baseAmount) && Boolean(paymentMethod);
+
+      if (validRequest) {
+        subtotal = baseAmount;
+        invoiceNumber = /^SBV-JAM-[A-Z0-9-]{1,32}$/.test(params.get("reference") || "")
+          ? params.get("reference")
+          : "SBV-JAM-PENDING";
+        bookingDetails = [
+          ["Jenis pemesanan", "Sewa villa per jam"],
+          ["Tanggal sewa", formatDate(date)],
+          ["Durasi", `${hours} jam`],
+          ["Jumlah tamu", `${guests} tamu`]
+        ];
+        invoiceRows = [
+          `<tr><td>Sewa villa per jam<br>${hours} jam × ${formatPrice(hourlyRate)}</td><td>${formatPrice(baseAmount)}</td></tr>`
+        ];
+      }
+    } else if (type === "stay") {
+      const checkIn = params.get("checkIn") || "";
+      const checkOut = params.get("checkOut") || "";
+      const validStay = validDate(checkIn) && validDate(checkOut) && checkOut > checkIn;
+      const nights = validStay ? (toUtcDate(checkOut) - toUtcDate(checkIn)) / 86400000 : 0;
+      const extras = [...new Set(params.getAll("extra").filter((extra) => Object.hasOwn(extraDetails, extra)))];
+      const requestedSpaPeople = Number(params.get("spaSinglePeople"));
+      const spaSinglePeople = Number.isSafeInteger(requestedSpaPeople) && requestedSpaPeople >= 1 ? requestedSpaPeople : 1;
+      const extrasTotal = extras.reduce((sum, extra) => sum + extraDetails[extra].rate * (extra === "Private spa single" ? spaSinglePeople : 1), 0);
+      const baseAmount = nightlyRate * nights;
+      const validRequest = validStay && Number.isSafeInteger(nights) && nights > 0
+        && Number.isSafeInteger(baseAmount + extrasTotal) && Boolean(paymentMethod);
+
+      if (validRequest) {
+        subtotal = baseAmount + extrasTotal;
+        invoiceNumber = /^SBV-[A-Z0-9-]{1,32}$/.test(params.get("invoice") || "")
+          ? params.get("invoice")
+          : "SBV-PENDING";
+        bookingDetails = [
+          ["Jenis pemesanan", "Menginap per malam"],
+          ["Check-in", formatDate(checkIn)],
+          ["Check-out", formatDate(checkOut)],
+          ["Jumlah malam", `${nights} malam`],
+          ["Jumlah tamu", `${guests} tamu`]
+        ];
+        invoiceRows = [
+          `<tr><td>Sewa villa<br>${formatPrice(nightlyRate)} × ${nights} malam</td><td>${formatPrice(baseAmount)}</td></tr>`
+        ];
+        extras.forEach((extra) => {
+          const details = extraDetails[extra];
+          const quantity = extra === "Private spa single" ? spaSinglePeople : 1;
+          const quantityLabel = extra === "Private spa single"
+            ? `${quantity} orang × ${formatPrice(details.rate)} (${details.unit})`
+            : `${formatPrice(details.rate)} (${details.unit})`;
+          invoiceRows.push(`<tr><td>${extra}<br>${quantityLabel}</td><td>${formatPrice(details.rate * quantity)}</td></tr>`);
+        });
+      }
+    }
+
+    if (!invoiceNumber || !subtotal || !paymentMethod) {
+      showInvalid();
+    } else {
+      const pbjt = Math.round(subtotal * taxRate);
+      const total = subtotal + pbjt;
+      if (!Number.isSafeInteger(pbjt) || !Number.isSafeInteger(total)) {
+        invoiceNumber = "";
+        showInvalid();
+      } else {
+        invoiceRows.push(`<tr class="tax-line"><td>PBJT (10%)<br>10% × ${formatPrice(subtotal)}</td><td>${formatPrice(pbjt)}</td></tr>`);
+        document.querySelector("#invoice-number").textContent = invoiceNumber;
+        document.querySelector("#payment-method").textContent = paymentMethod;
+        document.querySelector("#invoice-date").textContent = new Intl.DateTimeFormat("id-ID", { day: "numeric", month: "long", year: "numeric" }).format(new Date());
+        document.querySelector("#invoice-items").innerHTML = invoiceRows.join("");
+        document.querySelector("#invoice-total").textContent = formatPrice(total);
+        setDetails(bookingDetails);
+        document.querySelector("#invoice").hidden = false;
+      }
+    }
+
+    document.querySelector("#print-invoice").addEventListener("click", () => window.print());
+  </script>
+</body>
+</html>

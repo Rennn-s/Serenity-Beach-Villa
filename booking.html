@@ -237,7 +237,7 @@
               <label class="booking-type-option"><input type="radio" name="booking-type" value="stay" checked>Menginap per malam</label>
               <label class="booking-type-option"><input type="radio" name="booking-type" value="hourly">Sewa villa per jam</label>
             </fieldset>
-            <h2 id="date-section-heading">Tanggal &amp; jumlah tamu</h2>
+            <h2 id="date-section-heading">Tanggal & Jumlah Tamu</h2>
             <div class="date-grid">
               <div class="field"><label id="arrival-label" for="check-in">Check-in</label><input id="check-in" name="check-in" type="date" required></div>
               <div class="field" id="checkout-field"><label for="check-out">Check-out</label><input id="check-out" name="check-out" type="date" required></div>
@@ -262,7 +262,7 @@
             </div>
             <div class="extra-quantity" id="spa-single-quantity-field" hidden>
               <label for="spa-single-people">Jumlah orang untuk sesi spa single</label>
-              <input id="spa-single-people" type="number" min="1" max="2" step="1" value="1" inputmode="numeric" disabled>
+              <input id="spa-single-people" type="number" min="1" step="1" value="1" inputmode="numeric" disabled>
             </div>
           </div>
           <button class="submit-button" id="booking-submit" type="submit">Lanjut ke invoice <span aria-hidden="true">→</span></button>
@@ -322,19 +322,18 @@
     const getExtrasTotal = () => {
       const extras = selectedExtras();
       const spaPeople = spaSingleOption.checked ? Number(spaSinglePeople.value) : 0;
-      return extras.reduce((total, extra) => total + extraRates[extra] * (extra === "Private spa single" ? spaPeople : 1), 0);
+      return extras.reduce((sum, extra) => sum + extraRates[extra] * (extra === "Private spa single" ? spaPeople : 1), 0);
     };
     const updateSpaQuantity = () => {
-      const guestCount = Number(document.querySelector("#guests").value);
-      const maxPeople = Number.isFinite(guestCount) ? guestCount : 5;
-      spaSinglePeople.max = String(maxPeople);
-      if (Number(spaSinglePeople.value) > maxPeople) spaSinglePeople.value = String(maxPeople);
       spaSingleQuantityField.hidden = !spaSingleOption.checked || isHourlyBooking();
       spaSinglePeople.disabled = !spaSingleOption.checked || isHourlyBooking();
       spaSinglePeople.required = spaSingleOption.checked && !isHourlyBooking();
       extrasEstimateOutput.hidden = selectedExtras().length === 0 || isHourlyBooking();
       if (!extrasEstimateOutput.hidden) {
-        extrasEstimateOutput.textContent = `Total tambahan terpilih: ${formatPrice(getExtrasTotal())}`;
+        const extrasTotal = getExtrasTotal();
+        extrasEstimateOutput.textContent = Number.isSafeInteger(extrasTotal)
+          ? `Total tambahan terpilih: ${formatPrice(extrasTotal)}`
+          : "Jumlah harga terlalu besar. Periksa jumlah orang untuk spa.";
       }
     };
     const isHourlyBooking = () => document.querySelector('input[name="booking-type"]:checked').value === "hourly";
@@ -390,6 +389,14 @@
       const nights = (toUtcDate(departure.value) - toUtcDate(arrival.value)) / 86400000;
       const extrasTotal = getExtrasTotal();
       const total = nightlyRate * nights + extrasTotal;
+      if (!Number.isSafeInteger(total)) {
+        stayTotalOutput.textContent = "Jumlah harga terlalu besar. Periksa jumlah orang untuk spa.";
+        availableUnits = null;
+        availabilityOutput.textContent = "Periksa kembali jumlah orang yang dipilih untuk spa.";
+        availabilityOutput.classList.remove("is-unavailable");
+        extrasEstimateOutput.hidden = true;
+        return;
+      }
       stayTotalOutput.textContent = `${formatPrice(total)} (${nights} malam${extrasTotal ? ` + ${formatPrice(extrasTotal)} tambahan` : ""})`;
       availableUnits = reservedRanges.some((range) => arrival.value < range.checkOut && departure.value > range.checkIn) ? 0 : unitCount;
       availabilityOutput.textContent = availableUnits
@@ -464,6 +471,12 @@
         return;
       }
       updateStayDetails();
+      if (!Number.isSafeInteger(getExtrasTotal())) {
+        spaSinglePeople.setCustomValidity("Jumlah orang menghasilkan harga yang terlalu besar.");
+        spaSinglePeople.reportValidity();
+        spaSinglePeople.setCustomValidity("");
+        return;
+      }
       if (availableUnits === 0) {
         bookingResult.textContent = "Villa tidak tersedia untuk rentang tanggal yang dipilih. Silakan pilih tanggal lain.";
         bookingResult.classList.add("is-visible");

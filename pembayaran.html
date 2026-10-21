@@ -62,6 +62,8 @@
     .total-row { display: flex; align-items: center; justify-content: space-between; gap: 15px; padding-top: 19px; }
     .total-row span { font-size: 11px; font-weight: 700; }
     .total-row strong { color: var(--sea-dark); font-size: 21px; }
+    .tax-row { display: flex; align-items: center; justify-content: space-between; gap: 15px; padding: 13px 0; border-top: 1px solid var(--line); color: #526761; font-size: 11px; }
+    .tax-row strong { color: var(--ink); }
     .invoice-note { margin: 16px 0 0; padding-top: 13px; border-top: 1px solid var(--line); }
     .methods { padding: 25px; }
     .methods h2 { margin-bottom: 5px; font: 400 24px var(--serif); }
@@ -138,7 +140,8 @@
           <thead><tr><th>Deskripsi</th><th>Jumlah</th></tr></thead>
           <tbody id="invoice-items"></tbody>
         </table>
-        <div class="total-row"><span>Total estimasi</span><strong id="invoice-total">-</strong></div>
+        <div class="tax-row"><span>PBJT (10%)</span><strong id="pbjt-amount">-</strong></div>
+        <div class="total-row"><span>Total estimasi termasuk PBJT</span><strong id="invoice-total">-</strong></div>
         <p class="invoice-note" id="invoice-note">Total merupakan estimasi berdasarkan tarif villa dan tambahan yang dipilih. Konfirmasi akhir tetap diperlukan.</p>
       </section>
       <section class="panel methods" aria-labelledby="methods-heading">
@@ -208,14 +211,13 @@
       "Private spa couple": { rate: 250000, unit: "per sesi (2 orang)" }
     };
     const extras = [...new Set(params.getAll("extra").filter((extra) => Object.hasOwn(extraDetails, extra)))];
-    const spaPeopleLimit = guests === "5+" ? 5 : Number(guests);
     const requestedSpaPeople = Number(params.get("spaSinglePeople"));
-    const spaSinglePeople = Number.isSafeInteger(requestedSpaPeople) && requestedSpaPeople >= 1 && requestedSpaPeople <= spaPeopleLimit
-      ? requestedSpaPeople
-      : 1;
+    const spaSinglePeople = Number.isSafeInteger(requestedSpaPeople) && requestedSpaPeople >= 1 ? requestedSpaPeople : 1;
     const extraTotal = extras.reduce((sum, extra) => sum + extraDetails[extra].rate * (extra === "Private spa single" ? spaSinglePeople : 1), 0);
     const baseAmount = nightlyRate * nights;
-    const amount = baseAmount + extraTotal;
+    const subtotal = baseAmount + extraTotal;
+    const pbjt = Math.round(subtotal * 0.1);
+    const amount = subtotal + pbjt;
     const invoiceNumber = /^SBV-[A-Z0-9-]{1,32}$/.test(params.get("invoice") || "") ? params.get("invoice") : "SBV-PENDING";
     const formatDate = (value) => new Intl.DateTimeFormat("id-ID", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }).format(new Date(toUtcDate(value)));
     const formatPrice = (value) => new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(value);
@@ -236,6 +238,7 @@
       document.querySelector("#check-in-date").textContent = formatDate(checkIn);
       document.querySelector("#check-out-date").textContent = formatDate(checkOut);
       document.querySelector("#night-count").textContent = `${nights} malam`;
+      document.querySelector("#pbjt-amount").textContent = formatPrice(pbjt);
       document.querySelector("#invoice-total").textContent = formatPrice(amount);
       const items = [
         `<tr><td>Sewa villa<br>${formatPrice(nightlyRate)} × ${nights} malam</td><td>${formatPrice(baseAmount)}</td></tr>`,
@@ -258,10 +261,17 @@
       event.preventDefault();
       const selected = document.querySelector('input[name="payment-method"]:checked');
       if (!selected) return;
-      const result = document.querySelector("#payment-result");
-      result.textContent = `Metode ${selected.value} dipilih untuk invoice ${invoiceNumber}. Pembayaran belum diproses. Hubungi tim Serenity Beach Villa untuk memperoleh detail pembayaran resmi dan konfirmasi reservasi.`;
-      result.classList.add("is-visible");
-      result.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      const invoiceUrl = new URL("invoice.html", window.location.href);
+      invoiceUrl.searchParams.set("type", "stay");
+      invoiceUrl.searchParams.set("checkIn", checkIn);
+      invoiceUrl.searchParams.set("checkOut", checkOut);
+      invoiceUrl.searchParams.set("guests", guests);
+      invoiceUrl.searchParams.set("invoice", invoiceNumber);
+      invoiceUrl.searchParams.set("paymentMethod", selected.value);
+      extras.forEach((extra) => invoiceUrl.searchParams.append("extra", extra));
+      if (extras.includes("Private spa single")) invoiceUrl.searchParams.set("spaSinglePeople", String(spaSinglePeople));
+      if (params.has("experience")) invoiceUrl.searchParams.set("experience", params.get("experience"));
+      window.location.href = invoiceUrl.href;
     });
   </script>
 </body>
