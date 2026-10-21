@@ -195,8 +195,10 @@
       && parsedDate.getUTCDate() === day
       && date >= localToday;
     const hours = Number(params.get("hours"));
-    const hourlyRate = 500000;
-    const subtotal = hourlyRate * hours;
+    const hourlyBlockRate = 500000;
+    const hourlyBlockHours = 3;
+    const blocks = Math.ceil(hours / hourlyBlockHours);
+    const subtotal = hourlyBlockRate * blocks;
     const pbjt = Math.round(subtotal * 0.1);
     const total = subtotal + pbjt;
     const guestsValue = params.get("guests");
@@ -211,8 +213,8 @@
       document.querySelector("#rental-date").textContent = new Intl.DateTimeFormat("id-ID", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }).format(parsedDate);
       document.querySelector("#guest-count").textContent = `${guests} tamu`;
       document.querySelector("#rental-duration").textContent = `${hours} jam`;
-      document.querySelector("#hourly-rate").textContent = `${formatPrice(hourlyRate)} / jam`;
-      document.querySelector("#calculation").textContent = `${hours} jam × ${formatPrice(hourlyRate)}`;
+      document.querySelector("#hourly-rate").textContent = `${formatPrice(hourlyBlockRate)} / 3 jam`;
+      document.querySelector("#calculation").textContent = `${blocks} paket × ${formatPrice(hourlyBlockRate)} (durasi ${hours} jam)`;
       document.querySelector("#estimated-total").textContent = formatPrice(subtotal);
       document.querySelector("#pbjt-amount").textContent = formatPrice(pbjt);
       document.querySelector("#total-amount").textContent = formatPrice(total);

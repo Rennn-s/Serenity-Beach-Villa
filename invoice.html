@@ -143,8 +143,9 @@
       "GoPay", "OVO", "DANA", "Visa", "American Express", "Mastercard", "ATM", "Retail"
     ];
     const paymentMethod = paymentMethods.includes(params.get("paymentMethod")) ? params.get("paymentMethod") : "";
-    const hourlyRate = 500000;
-    const nightlyRate = 1000000;
+    const hourlyBlockRate = 500000;
+    const hourlyBlockHours = 3;
+    const nightlyRate = 2800000;
     const taxRate = 0.1;
     const extraDetails = {
       "Antar jemput bandara": { rate: 120000, unit: "per booking" },
@@ -180,7 +181,8 @@
       const today = new Date();
       const localToday = new Date(today.getTime() - today.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
       const isValidDate = validDate(date) && date >= localToday;
-      const baseAmount = hourlyRate * hours;
+      const blocks = Math.ceil(hours / hourlyBlockHours);
+      const baseAmount = hourlyBlockRate * blocks;
       const validRequest = isValidDate && Number.isSafeInteger(hours) && hours >= 3
         && Number.isSafeInteger(baseAmount) && Boolean(paymentMethod);
 
@@ -196,7 +198,7 @@
           ["Jumlah tamu", `${guests} tamu`]
         ];
         invoiceRows = [
-          `<tr><td>Sewa villa per jam<br>${hours} jam × ${formatPrice(hourlyRate)}</td><td>${formatPrice(baseAmount)}</td></tr>`
+          `<tr><td>Sewa villa per jam<br>${blocks} paket × ${formatPrice(hourlyBlockRate)} per 3 jam (durasi ${hours} jam)</td><td>${formatPrice(baseAmount)}</td></tr>`
         ];
       }
     } else if (type === "stay") {

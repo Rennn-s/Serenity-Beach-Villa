@@ -288,8 +288,9 @@
     const spaSinglePeople = document.querySelector("#spa-single-people");
     const spaSingleQuantityField = document.querySelector("#spa-single-quantity-field");
     const bookingResult = document.querySelector("#booking-result");
-    const nightlyRate = 1000000;
-    const hourlyRate = 500000;
+    const nightlyRate = 2800000;
+    const hourlyBlockRate = 500000;
+    const hourlyBlockHours = 3;
     const extraRates = {
       "Antar jemput bandara": 120000,
       "Floating breakfast": 300000,
@@ -347,8 +348,8 @@
       rentalHours.required = hourly;
       extrasSection.hidden = hourly;
       document.querySelectorAll('input[name="extras"]').forEach((input) => { input.disabled = hourly; });
-      nightlyRateOutput.textContent = formatPrice(hourly ? hourlyRate : nightlyRate);
-      document.querySelector("#rate-unit").textContent = hourly ? "/ jam" : "/ malam";
+      nightlyRateOutput.textContent = formatPrice(hourly ? hourlyBlockRate : nightlyRate);
+      document.querySelector("#rate-unit").textContent = hourly ? "/ 3 jam" : "/ malam";
       document.querySelector("#total-label").textContent = hourly ? "Estimasi harga sewa:" : "Estimasi harga menginap:";
       document.querySelector("#stay-summary-note").textContent = hourly
         ? "Sewa per jam diproses sebagai permintaan penawaran terpisah. Harga akhir dan ketersediaan harus dikonfirmasi tim villa sebelum pembayaran."
@@ -363,7 +364,8 @@
       if (isHourlyBooking()) {
         extrasEstimateOutput.hidden = true;
         const hours = Number(rentalHours.value);
-        const subtotal = hourlyRate * hours;
+        const blocks = Math.ceil(hours / hourlyBlockHours);
+        const subtotal = hourlyBlockRate * blocks;
         const totalWithTax = subtotal + Math.round(subtotal * 0.1);
         if (!arrival.value || arrival.value < localToday || !Number.isSafeInteger(hours) || hours < 3
           || !Number.isSafeInteger(subtotal) || !Number.isSafeInteger(totalWithTax)) {
@@ -373,7 +375,7 @@
           availabilityOutput.classList.remove("is-unavailable");
           return;
         }
-        stayTotalOutput.textContent = `${formatPrice(hourlyRate * hours)} (${hours} jam)`;
+        stayTotalOutput.textContent = `${formatPrice(subtotal)} (${hours} jam · ${blocks} paket 3 jam)`;
         availableUnits = reservedHourlyDates.includes(arrival.value) ? 0 : unitCount;
         availabilityOutput.textContent = availableUnits
           ? "Tanggal dapat diajukan; jadwal sewa per jam tetap perlu dikonfirmasi tim villa."
@@ -442,7 +444,7 @@
       event.preventDefault();
       if (isHourlyBooking()) {
         const hours = Number(rentalHours.value);
-        const subtotal = hourlyRate * hours;
+        const subtotal = hourlyBlockRate * Math.ceil(hours / hourlyBlockHours);
         const totalWithTax = subtotal + Math.round(subtotal * 0.1);
         if (!arrival.value || arrival.value < localToday) {
           arrival.setCustomValidity("Pilih tanggal sewa hari ini atau setelahnya.");
@@ -468,7 +470,7 @@
         quoteUrl.searchParams.set("date", arrival.value);
         quoteUrl.searchParams.set("hours", String(hours));
         quoteUrl.searchParams.set("guests", document.querySelector("#guests").value);
-        quoteUrl.searchParams.set("estimatedTotal", String(hourlyRate * hours));
+        quoteUrl.searchParams.set("estimatedTotal", String(subtotal));
         quoteUrl.searchParams.set("reference", `SBV-JAM-${Date.now().toString(36).toUpperCase()}`);
         if (requestedExperience && experiences[requestedExperience]) {
           quoteUrl.searchParams.set("experience", experiences[requestedExperience]);
