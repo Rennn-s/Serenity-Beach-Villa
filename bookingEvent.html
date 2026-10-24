@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f6f0">
+  <meta name="description" content="Rencanakan acara dan aktivitas di Bali bersama MyEvent. Booking rental motor, field trip, entertainment, dan ocean experience.">
+  <title>MyEvent — Booking momen spesial Anda</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #243d3b;
+      --muted: #687b75;
+      --cream: #f8f6f0;
+      --paper: #fffefa;
+      --sea-dark: #203d3a;
+      --line: #e6e5dc;
+      --gold: #b5966d;
+      --serif: "Playfair Display", Georgia, serif;
+      --sans: "DM Sans", Arial, sans-serif;
+      --content: 1160px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+    body { margin: 0; background: var(--cream); color: var(--ink); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    button, input, select, textarea { font: inherit; }
+    img { display: block; width: 100%; object-fit: cover; }
+    .container { width: min(var(--content),calc(100% - 64px)); margin-inline: auto; }
+    .announcement { display: flex; min-height: 36px; align-items: center; justify-content: center; gap: 9px; padding: 7px 16px; background: var(--sea-dark); color: #f7f4e9; font-size: 9px; letter-spacing: .14em; text-align: center; text-transform: uppercase; }
+    .announcement span { color: #e7c697; }
+    .site-header { position: sticky; z-index: 10; top: 0; border-bottom: 1px solid rgba(36,61,59,.09); background: rgba(248,246,240,.96); backdrop-filter: blur(14px); }
+    .nav { display: flex; min-height: 74px; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: inline-flex; flex-shrink: 0; align-items: center; }
+    .brand-logo { display: block; width: 82px; height: auto; object-fit: contain; }
+    .nav-links { display: flex; align-items: center; gap: clamp(18px,3vw,35px); color: #526761; font-size: 10px; }
+    .nav-links a:hover,.back-link:hover { color: #a17848; }
+    .back-link { color: #526761; font-size: 9px; letter-spacing: .1em; text-transform: uppercase; }
+    .hero { position: relative; display: flex; min-height: 450px; overflow: hidden; align-items: center; background: #63736e; color: white; }
+    .hero-image { position: absolute; inset: 0; height: 100%; object-position: center 56%; }
+    .hero::after { position: absolute; inset: 0; background: linear-gradient(90deg,rgba(19,39,39,.75),rgba(23,40,39,.36) 62%,rgba(25,37,36,.08)),linear-gradient(0deg,rgba(19,37,36,.25),transparent 50%); content: ""; }
+    .hero-content { position: relative; z-index: 1; width: min(var(--content),calc(100% - 64px)); margin: 0 auto; padding: 65px 0 76px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 10px; color: #efd8b4; font-size: 9px; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; }
+    .eyebrow::before { width: 27px; height: 1px; background: currentColor; content: ""; }
+    h1,h2,h3,p { margin-top: 0; }
+    h1 { max-width: 690px; margin: 19px 0 14px; font: 400 clamp(43px,7vw,76px)/1.04 var(--serif); letter-spacing: -.035em; }
+    h1 em { color: #e7c697; font-weight: 400; }
+    .hero-copy { max-width: 460px; margin-bottom: 26px; color: rgba(255,255,255,.86); font-size: 12px; line-height: 1.9; }
+    .button { display: inline-flex; min-height: 47px; align-items: center; justify-content: center; gap: 10px; padding: 0 19px; border: 0; background: var(--sea-dark); color: white; cursor: pointer; font-size: 9px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; transition: background .2s,transform .2s; }
+    .button:hover { transform: translateY(-1px); background: #345d55; }
+    .button-light { border: 1px solid rgba(255,255,255,.72); background: rgba(255,255,255,.08); }
+    .button-light:hover { background: rgba(255,255,255,.18); }
+    .hero-caption { position: absolute; z-index: 1; right: max(32px,calc((100vw - var(--content))/2)); bottom: 24px; color: rgba(255,255,255,.8); font-size: 8px; letter-spacing: .15em; text-transform: uppercase; }
+    .service-section { padding: 82px 0 76px; }
+    .section-heading { max-width: 610px; margin: 0 auto 34px; text-align: center; }
+    .section-heading .eyebrow { color: #9a7950; }
+    .section-heading .eyebrow::before { display: none; }
+    .section-heading h2 { margin: 14px 0 11px; font: 400 clamp(32px,4.4vw,47px)/1.13 var(--serif); letter-spacing: -.025em; }
+    .section-heading p { margin-bottom: 0; color: var(--muted); font-size: 11px; line-height: 1.85; }
+    .service-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 14px; }
+    .service-card { display: flex; min-width: 0; flex-direction: column; overflow: hidden; border: 1px solid rgba(36,61,59,.08); background: var(--paper); box-shadow: 0 9px 28px rgba(35,55,48,.045); }
+    .service-image-wrap { position: relative; height: 168px; overflow: hidden; background: #d9ddd5; }
+    .service-image-wrap img { height: 100%; transition: transform .45s; }
+    .service-card:hover .service-image-wrap img { transform: scale(1.045); }
+    .service-number { position: absolute; top: 12px; left: 12px; padding: 6px 8px; background: rgba(255,254,250,.93); color: #526761; font-size: 8px; font-weight: 700; letter-spacing: .1em; }
+    .service-copy { display: flex; flex: 1; flex-direction: column; align-items: flex-start; padding: 19px; }
+    .service-copy h3 { margin: 0 0 8px; font: 400 21px/1.2 var(--serif); }
+    .service-copy p { min-height: 58px; margin-bottom: 13px; color: var(--muted); font-size: 10px; line-height: 1.75; }
+    .service-points { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; }
+    .service-points span { padding: 6px 7px; border: 1px solid var(--line); color: #60736c; font-size: 8px; }
+    .service-link { display: inline-flex; align-items: center; gap: 8px; margin-top: auto; padding: 0 0 5px; border: 0; border-bottom: 1px solid var(--gold); background: transparent; color: var(--sea-dark); cursor: pointer; font-size: 8px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+    .service-link:hover { color: #a17848; }
+    .booking-section { padding: 72px 0 86px; border-top: 1px solid var(--line); background: #f1efe8; scroll-margin-top: 74px; }
+    .booking-layout { display: grid; grid-template-columns: minmax(0,1.5fr) minmax(250px,.72fr); align-items: start; gap: 20px; }
+    .booking-form,.booking-aside { border: 1px solid rgba(36,61,59,.08); background: var(--paper); box-shadow: 0 12px 35px rgba(35,55,48,.055); }
+    .booking-form { padding: clamp(22px,4vw,38px); }
+    .form-heading { margin-bottom: 26px; padding-bottom: 19px; border-bottom: 1px solid var(--line); }
+    .form-heading .eyebrow { color: #9a7950; }
+    .form-heading h2 { margin: 11px 0 7px; font: 400 clamp(27px,3.5vw,37px)/1.12 var(--serif); }
+    .form-heading p { margin-bottom: 0; color: var(--muted); font-size: 10px; line-height: 1.75; }
+    .form-section + .form-section { margin-top: 27px; padding-top: 25px; border-top: 1px solid var(--line); }
+    .form-section h3 { margin-bottom: 16px; font: 400 21px var(--serif); }
+    .field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px 13px; }
+    .field { min-width: 0; }
+    .field-full { grid-column: 1 / -1; }
+    .field label,.field-label { display: block; margin-bottom: 7px; color: #65766f; font-size: 8px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+    .field input,.field select,.field textarea { width: 100%; min-height: 44px; padding: 10px 11px; border: 1px solid var(--line); border-radius: 0; outline-color: #9a7950; background: #fffefa; color: var(--ink); font-size: 11px; }
+    .field textarea { min-height: 88px; resize: vertical; }
+    .field input::placeholder,.field textarea::placeholder { color: #9aa49c; }
+    .field-hint { display: block; margin-top: 6px; color: var(--muted); font-size: 9px; line-height: 1.6; }
+    .check-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px; }
+    .check-option { display: flex; min-height: 40px; align-items: center; gap: 8px; padding: 8px 10px; border: 1px solid var(--line); color: #526761; cursor: pointer; font-size: 10px; }
+    .check-option:has(input:checked) { border-color: #8da49a; background: #f0f4ec; color: var(--ink); }
+    .check-option input { width: 14px; height: 14px; margin: 0; accent-color: var(--sea-dark); }
+    .booking-aside { position: sticky; top: 96px; padding: 23px; }
+    .aside-label { display: block; margin-bottom: 10px; color: #9a7950; font-size: 8px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+    .booking-aside h3 { margin-bottom: 10px; font: 400 24px/1.2 var(--serif); }
+    .booking-aside > p { margin-bottom: 18px; color: var(--muted); font-size: 10px; line-height: 1.8; }
+    .steps { display: grid; gap: 0; margin: 0; padding: 0; list-style: none; counter-reset: steps; }
+    .steps li { position: relative; padding: 0 0 18px 35px; color: #526761; font-size: 10px; line-height: 1.65; counter-increment: steps; }
+    .steps li::before { position: absolute; top: 0; left: 0; display: grid; width: 23px; height: 23px; place-items: center; border: 1px solid #d9d7cc; border-radius: 50%; color: #9a7950; content: counter(steps,decimal-leading-zero); font-size: 8px; font-weight: 700; }
+    .steps strong { display: block; color: var(--ink); font-size: 10px; }
+    .aside-note { margin: 4px 0 0; padding: 13px; border-left: 2px solid var(--gold); background: #f5f1e8; color: #65766f; font-size: 9px; line-height: 1.7; }
+    .submit-button { width: 100%; min-height: 49px; margin-top: 25px; }
+    .form-result { display: none; margin-top: 14px; padding: 14px; border: 1px solid #d9e2d8; background: #edf2e9; color: var(--sea-dark); font-size: 10px; line-height: 1.7; }
+    .form-result.is-visible { display: block; }
+    .footer { padding: 23px 0; background: var(--sea-dark); color: #b7c2b8; font-size: 9px; }
+    .footer-row { display: flex; justify-content: space-between; gap: 20px; }
+    .footer a:hover { color: white; }
+    [hidden] { display: none !important; }
+    @media (max-width: 900px) {
+      .service-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+      .booking-layout { grid-template-columns: minmax(0,1.35fr) minmax(220px,.8fr); }
+    }
+    @media (max-width: 640px) {
+      .container,.hero-content { width: calc(100% - 36px); }
+      .nav { min-height: 65px; }
+      .brand-logo { width: 72px; }
+      .nav-links { gap: 13px; font-size: 9px; }
+      .back-link { max-width: 88px; font-size: 8px; line-height: 1.5; text-align: right; }
+      .hero { min-height: 395px; }
+      .hero-image { object-position: 61% center; }
+      .hero-content { padding: 53px 0 70px; }
+      .hero-copy { max-width: 360px; }
+      .hero-caption { right: 18px; bottom: 17px; font-size: 7px; }
+      .service-section { padding: 59px 0 56px; }
+      .section-heading { margin-bottom: 25px; }
+      .service-grid { gap: 10px; }
+      .service-image-wrap { height: 135px; }
+      .service-copy { padding: 14px; }
+      .service-copy h3 { font-size: 18px; }
+      .service-copy p { min-height: 0; font-size: 9px; }
+      .service-points { gap: 5px; }
+      .service-points span { padding: 5px 6px; font-size: 7px; }
+      .service-link { font-size: 7px; }
+      .booking-section { padding: 57px 0 65px; }
+      .booking-layout { grid-template-columns: 1fr; }
+      .booking-aside { position: static; grid-row: 1; }
+      .booking-form { padding: 22px 17px; }
+      .field-grid { gap: 13px 10px; }
+      .footer-row { flex-direction: column; gap: 7px; }
+    }
+    @media (max-width: 390px) {
+      .nav-links { gap: 9px; font-size: 8px; }
+      .service-grid { grid-template-columns: 1fr; }
+      .service-card { display: grid; grid-template-columns: 38% 1fr; }
+      .service-image-wrap { height: 100%; min-height: 175px; }
+      .service-copy p { margin-bottom: 10px; }
+      .field-grid { grid-template-columns: 1fr; }
+      .field-full { grid-column: auto; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *,*::before,*::after { transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="announcement"><span aria-hidden="true">✳</span> MyEvent · Your moment, your way <span aria-hidden="true">✳</span></div>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="index.html#home" aria-label="Serenity Beach Villa, beranda"><img class="brand-logo" src="foto/logo-serenity.png" alt="Serenity Beach Villa"></a>
+      <nav class="nav-links" aria-label="Navigasi MyEvent">
+        <a href="#layanan">Layanan</a>
+        <a href="#booking">Booking</a>
+      </nav>
+      <a class="back-link" href="index.html">← Kembali ke villa</a>
+    </div>
+  </header>
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <img class="hero-image" src="foto/beach-sunset.png" alt="Suasana acara santai di tepi pantai saat matahari terbenam" fetchpriority="high">
+      <div class="hero-content">
+        <span class="eyebrow">A little planning, a lot of memories</span>
+        <h1>Setiap momen punya<br>cerita <em>istimewa.</em></h1>
+        <p class="hero-copy">Dari kejutan ulang tahun sampai petualangan di laut, rencanakan pengalaman pilihanmu dalam satu tempat.</p>
+        <a class="button button-light" href="#layanan">Jelajahi layanan <span aria-hidden="true">↓</span></a>
+      </div>
+      <span class="hero-caption">Bali · Make it a moment to remember</span>
+    </section>
+
+    <section class="service-section" id="layanan" aria-labelledby="service-title">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Pilih pengalamanmu</span>
+          <h2 id="service-title">Momenmu, rencanamu.</h2>
+          <p>Pilih kebutuhan yang ingin kamu booking. Kami bantu cek ketersediaan, detail layanan, dan penawaran dari partner lokal.</p>
+        </div>
+        <div class="service-grid">
+          <article class="service-card">
+            <div class="service-image-wrap">
+              <img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=900&q=80" alt="Motor untuk disewa menjelajahi pulau" loading="lazy">
+              <span class="service-number">01 / BERKELILING</span>
+            </div>
+            <div class="service-copy">
+              <h3>Rental motor</h3>
+              <p>Jelajahi pulau dengan waktu sewa fleksibel, per jam atau per hari.</p>
+              <div class="service-points"><span>Per jam</span><span>Per hari</span><span>Antar-jemput</span></div>
+              <button class="service-link" type="button" data-service="motor">Booking motor <span aria-hidden="true">→</span></button>
+            </div>
+          </article>
+          <article class="service-card">
+            <div class="service-image-wrap">
+              <img src="https://images.pexels.com/photos/35428411/pexels-photo-35428411/free-photo-of-lush-green-rice-terraces-in-bali-indonesia.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Hamparan sawah terasering Bali untuk field trip" loading="lazy">
+              <span class="service-number">02 / JELAJAH BALI</span>
+            </div>
+            <div class="service-copy">
+              <h3>Field trip</h3>
+              <p>Pilih destinasi dan rencanakan perjalanan sehari sesuai minatmu.</p>
+              <div class="service-points"><span>Ubud</span><span>Uluwatu</span><span>Kintamani</span></div>
+              <button class="service-link" type="button" data-service="trip">Pilih destinasi <span aria-hidden="true">→</span></button>
+            </div>
+          </article>
+          <article class="service-card">
+            <div class="service-image-wrap">
+              <img src="foto/beach-sunset.png" alt="Suasana perayaan bersama di tepi pantai" loading="lazy">
+              <span class="service-number">03 / HARI SPESIAL</span>
+            </div>
+            <div class="service-copy">
+              <h3>Entertainment</h3>
+              <p>Rancang acara lamaran, pernikahan, ulang tahun, atau momen spesial lainnya.</p>
+              <div class="service-points"><span>Dekorasi</span><span>Musik</span><span>Dokumentasi</span></div>
+              <button class="service-link" type="button" data-service="entertainment">Rencanakan acara <span aria-hidden="true">→</span></button>
+            </div>
+          </article>
+          <article class="service-card">
+            <div class="service-image-wrap">
+              <img src="foto/ocean-view.png" alt="Pemandangan laut untuk pengalaman ocean experience" loading="lazy">
+              <span class="service-number">04 / DI TENGAH LAUT</span>
+            </div>
+            <div class="service-copy">
+              <h3>Ocean experience</h3>
+              <p>Nikmati aktivitas laut, dari snorkeling santai sampai olahraga air.</p>
+              <div class="service-points"><span>Snorkeling</span><span>Surfing</span><span>Jetski</span></div>
+              <button class="service-link" type="button" data-service="ocean">Pilih aktivitas <span aria-hidden="true">→</span></button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="booking-section" id="booking" aria-labelledby="booking-title">
+      <div class="container">
+        <div class="booking-layout">
+          <form class="booking-form" id="event-booking-form">
+            <div class="form-heading">
+              <span class="eyebrow">MyEvent booking form</span>
+              <h2 id="booking-title">Ceritakan rencanamu.</h2>
+              <p>Isi detail berikut agar tim kami dapat membantu menyiapkan pilihan yang sesuai.</p>
+            </div>
+            <section class="form-section" aria-labelledby="contact-title">
+              <h3 id="contact-title">Informasi kontak</h3>
+              <div class="field-grid">
+                <div class="field">
+                  <label for="guest-name">Nama lengkap</label>
+                  <input id="guest-name" name="name" type="text" autocomplete="name" placeholder="Nama kamu" required>
+                </div>
+                <div class="field">
+                  <label for="guest-phone">Nomor WhatsApp</label>
+                  <input id="guest-phone" name="phone" type="tel" autocomplete="tel" placeholder="+62 812 3456 7890" required>
+                </div>
+                <div class="field field-full">
+                  <label for="guest-email">Email</label>
+                  <input id="guest-email" name="email" type="email" autocomplete="email" placeholder="nama@email.com" required>
+                </div>
+              </div>
+            </section>
+            <section class="form-section" aria-labelledby="plan-title">
+              <h3 id="plan-title">Detail booking</h3>
+              <div class="field-grid">
+                <div class="field">
+                  <label for="service-type">Saya ingin booking</label>
+                  <select id="service-type" name="service" required>
+                    <option value="">Pilih layanan</option>
+                    <option value="motor">Rental motor</option>
+                    <option value="trip">Field trip</option>
+                    <option value="entertainment">Entertainment / acara</option>
+                    <option value="ocean">Ocean experience</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="booking-date">Tanggal</label>
+                  <input id="booking-date" name="date" type="date" required>
+                </div>
+                <div class="field">
+                  <label for="booking-time">Waktu mulai</label>
+                  <input id="booking-time" name="time" type="time" required>
+                </div>
+                <div class="field">
+                  <label for="guest-count">Jumlah peserta / tamu</label>
+                  <input id="guest-count" name="guests" type="number" min="1" max="500" value="2" required>
+                </div>
+              </div>
+            </section>
+            <section class="form-section" id="motor-fields" aria-labelledby="motor-title" hidden>
+              <h3 id="motor-title">Detail rental motor</h3>
+              <div class="field-grid">
+                <div class="field">
+                  <label for="rental-period">Jenis durasi</label>
+                  <select id="rental-period" name="rentalPeriod">
+                    <option value="">Pilih durasi sewa</option>
+                    <option value="hour">Per jam</option>
+                    <option value="day">Per hari</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="rental-quantity">Lama sewa</label>
+                  <input id="rental-quantity" name="rentalQuantity" type="number" min="1" max="30" value="1">
+                  <span class="field-hint" id="rental-unit-hint">Pilih per jam atau per hari</span>
+                </div>
+                <div class="field field-full">
+                  <label for="rental-location">Lokasi antar / pengambilan</label>
+                  <input id="rental-location" name="rentalLocation" type="text" placeholder="Contoh: Serenity Beach Villa">
+                </div>
+              </div>
+            </section>
+            <section class="form-section" id="trip-fields" aria-labelledby="trip-title" hidden>
+              <h3 id="trip-title">Pilih tujuan field trip</h3>
+              <div class="field-grid">
+                <div class="field">
+                  <label for="trip-destination">Destinasi</label>
+                  <select id="trip-destination" name="destination">
+                    <option value="">Pilih destinasi</option>
+                    <option>Ubud — seni, budaya &amp; alam</option>
+                    <option>Uluwatu — pura &amp; sunset</option>
+                    <option>Kintamani — gunung &amp; danau</option>
+                    <option>Nusa Penida — pantai &amp; tebing</option>
+                    <option>Custom — saya punya rute sendiri</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="trip-style">Gaya perjalanan</label>
+                  <select id="trip-style" name="tripStyle">
+                    <option value="">Pilih gaya trip</option>
+                    <option>Wisata alam</option>
+                    <option>Budaya &amp; kuliner</option>
+                    <option>Foto &amp; sightseeing</option>
+                    <option>Rute pribadi</option>
+                  </select>
+                </div>
+              </div>
+            </section>
+            <section class="form-section" id="entertainment-fields" aria-labelledby="entertainment-title" hidden>
+              <h3 id="entertainment-title">Rencanakan acara</h3>
+              <div class="field-grid">
+                <div class="field field-full">
+                  <label for="event-type">Jenis acara</label>
+                  <select id="event-type" name="eventType">
+                    <option value="">Pilih jenis acara</option>
+                    <option>Lamaran</option>
+                    <option>Pernikahan</option>
+                    <option>Resepsi pernikahan</option>
+                    <option>Ulang tahun</option>
+                    <option>Anniversary</option>
+                    <option>Bridal shower</option>
+                    <option>Baby shower</option>
+                    <option>Gender reveal</option>
+                    <option>Wisuda</option>
+                    <option>Family gathering</option>
+                    <option>Reuni</option>
+                    <option>Private dinner</option>
+                    <option>Acara kantor / gathering perusahaan</option>
+                    <option>Honeymoon</option>
+                    <option>Acara spesial lainnya</option>
+                  </select>
+                </div>
+                <div class="field field-full">
+                  <span class="field-label">Kebutuhan acara (boleh pilih lebih dari satu)</span>
+                  <div class="check-grid">
+                    <label class="check-option"><input type="checkbox" name="eventNeeds" value="Dekorasi">Dekorasi &amp; venue</label>
+                    <label class="check-option"><input type="checkbox" name="eventNeeds" value="Catering">Catering</label>
+                    <label class="check-option"><input type="checkbox" name="eventNeeds" value="Musik">Musik &amp; hiburan</label>
+                    <label class="check-option"><input type="checkbox" name="eventNeeds" value="Dokumentasi">Foto &amp; video</label>
+                    <label class="check-option"><input type="checkbox" name="eventNeeds" value="Makeup">Makeup &amp; styling</label>
+                    <label class="check-option"><input id="other-event-need" type="checkbox" name="eventNeeds" value="Lainnya">Kebutuhan lainnya</label>
+                  </div>
+                  <div class="field" id="other-event-need-field" hidden style="margin-top:12px">
+                    <label for="other-event-need-details">Kebutuhan acara lainnya</label>
+                    <textarea id="other-event-need-details" name="otherEventNeedDetails" placeholder="Jelaskan kebutuhan acara yang kamu inginkan."></textarea>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <section class="form-section" id="ocean-fields" aria-labelledby="ocean-title" hidden>
+              <h3 class="ocean-title" id="ocean-title">Pilih ocean experience</h3>
+              <div class="field-grid">
+                <div class="field field-full">
+                  <label for="ocean-activity">Aktivitas laut</label>
+                  <select id="ocean-activity" name="oceanActivity">
+                    <option value="">Pilih aktivitas</option>
+                    <option>Snorkeling</option>
+                    <option>Diving / menyelam</option>
+                    <option>Surfing</option>
+                    <option>Jetski</option>
+                    <option>Banana boat</option>
+                    <option>Sunset cruise</option>
+                    <option>Aktivitas lainnya</option>
+                  </select>
+                </div>
+              </div>
+            </section>
+            <section class="form-section" aria-labelledby="notes-title">
+              <h3 id="notes-title">Catatan tambahan</h3>
+              <div class="field">
+                <label for="booking-notes">Ada detail atau permintaan khusus?</label>
+                <textarea id="booking-notes" name="notes" placeholder="Ceritakan preferensi, destinasi lain, atau detail acara yang ingin kami ketahui."></textarea>
+              </div>
+              <span class="field-hint">Harga, jadwal, dan ketersediaan akan dikonfirmasi setelah permintaan diterima.</span>
+            </section>
+            <button class="button submit-button" type="submit">Kirim permintaan booking <span aria-hidden="true">→</span></button>
+            <div class="form-result" id="form-result" role="status" aria-live="polite"></div>
+          </form>
+
+          <aside class="booking-aside">
+            <span class="aside-label">Booking dibuat mudah</span>
+            <h3>Mulai dari ide, jadi momen.</h3>
+            <p>Belum yakin detailnya? Kirim dulu rencana awalmu. Tim kami akan membantu mengecek opsi yang tersedia.</p>
+            <ol class="steps">
+              <li><strong>Pilih layanan</strong>Tentukan pengalaman atau acara yang ingin direncanakan.</li>
+              <li><strong>Ceritakan detailnya</strong>Isi tanggal, jumlah peserta, dan kebutuhan khusus.</li>
+              <li><strong>Konfirmasi bersama tim</strong>Harga, ketersediaan, dan ketentuan dikonfirmasi sebelum booking.</li>
+            </ol>
+            <p class="aside-note">Permintaan di halaman ini belum menjadi reservasi final. Aktivitas dan layanan acara bergantung pada ketersediaan partner lokal.</p>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer">
+    <div class="container footer-row">
+      <span>© <span id="year"></span> MyEvent · Serenity Beach Villa</span>
+      <span><a href="affiliate.html">Lihat pengalaman</a> · <a href="index.html">Kembali ke beranda</a></span>
+    </div>
+  </footer>
+  <script>
+    const serviceSelect = document.querySelector("#service-type");
+    const serviceSections = {
+      motor: document.querySelector("#motor-fields"),
+      trip: document.querySelector("#trip-fields"),
+      entertainment: document.querySelector("#entertainment-fields"),
+      ocean: document.querySelector("#ocean-fields")
+    };
+    const optionalFields = {
+      motor: ["rental-period", "rental-quantity", "rental-location"],
+      trip: ["trip-destination", "trip-style"],
+      entertainment: ["event-type"],
+      ocean: ["ocean-activity"]
+    };
+
+    function setService(service) {
+      serviceSelect.value = service;
+      Object.entries(serviceSections).forEach(([key, section]) => {
+        section.hidden = key !== service;
+        optionalFields[key].forEach((fieldId) => {
+          document.getElementById(fieldId).required = key === service;
+        });
+      });
+    }
+
+    document.querySelectorAll("[data-service]").forEach((button) => {
+      button.addEventListener("click", () => {
+        setService(button.dataset.service);
+        document.querySelector("#booking").scrollIntoView({ behavior: "smooth" });
+        serviceSelect.focus({ preventScroll: true });
+      });
+    });
+
+    serviceSelect.addEventListener("change", () => setService(serviceSelect.value));
+    const otherEventNeed = document.querySelector("#other-event-need");
+    const otherEventNeedField = document.querySelector("#other-event-need-field");
+    const otherEventNeedDetails = document.querySelector("#other-event-need-details");
+    otherEventNeed.addEventListener("change", () => {
+      otherEventNeedField.hidden = !otherEventNeed.checked;
+      otherEventNeedDetails.required = otherEventNeed.checked;
+      if (otherEventNeed.checked) otherEventNeedDetails.focus();
+    });
+
+    document.querySelector("#rental-period").addEventListener("change", (event) => {
+      const unit = event.target.value === "hour" ? "jam" : event.target.value === "day" ? "hari" : "";
+      document.querySelector("#rental-unit-hint").textContent = unit ? `Durasi dalam ${unit}` : "Pilih per jam atau per hari";
+    });
+
+    const bookingDate = document.querySelector("#booking-date");
+    const today = new Date();
+    const localDate = new Date(today.getTime() - today.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+    bookingDate.min = localDate;
+    document.querySelector("#year").textContent = new Date().getFullYear();
+
+    const initialService = new URLSearchParams(window.location.search).get("service");
+    if (initialService && Object.hasOwn(serviceSections, initialService)) {
+      setService(initialService);
+    }
+
+    document.querySelector("#event-booking-form").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const serviceName = serviceSelect.options[serviceSelect.selectedIndex].text;
+      const result = document.querySelector("#form-result");
+      result.textContent = `Terima kasih, permintaan ${serviceName.toLowerCase()} sudah siap ditinjau. Formulir demo ini belum terhubung ke sistem pengiriman, jadi belum ada booking yang terkirim.`;
+      result.classList.add("is-visible");
+      result.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    });
+  </script>
+</body>
+</html>
