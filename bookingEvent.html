@@ -495,11 +495,54 @@
 
     document.querySelector("#event-booking-form").addEventListener("submit", (event) => {
       event.preventDefault();
-      const serviceName = serviceSelect.options[serviceSelect.selectedIndex].text;
       const result = document.querySelector("#form-result");
-      result.textContent = `Terima kasih, permintaan ${serviceName.toLowerCase()} sudah siap ditinjau. Formulir demo ini belum terhubung ke sistem pengiriman, jadi belum ada booking yang terkirim.`;
-      result.classList.add("is-visible");
-      result.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      const service = serviceSelect.value;
+      const booking = {
+        service,
+        serviceName: serviceSelect.options[serviceSelect.selectedIndex].text,
+        name: document.querySelector("#guest-name").value.trim(),
+        phone: document.querySelector("#guest-phone").value.trim(),
+        email: document.querySelector("#guest-email").value.trim(),
+        date: bookingDate.value,
+        time: document.querySelector("#booking-time").value,
+        guests: document.querySelector("#guest-count").value,
+        notes: document.querySelector("#booking-notes").value.trim()
+      };
+
+      if (service === "motor") {
+        booking.rentalPeriod = document.querySelector("#rental-period").value;
+        booking.rentalQuantity = Number(document.querySelector("#rental-quantity").value);
+        booking.rentalLocation = document.querySelector("#rental-location").value.trim();
+      } else if (service === "trip") {
+        booking.destination = document.querySelector("#trip-destination").value;
+        booking.tripStyle = document.querySelector("#trip-style").value;
+      } else if (service === "entertainment") {
+        booking.eventType = document.querySelector("#event-type").value;
+        booking.eventNeeds = [...document.querySelectorAll('input[name="eventNeeds"]:checked')].map((input) => input.value);
+        booking.otherEventNeedDetails = otherEventNeedDetails.value.trim();
+      } else if (service === "ocean") {
+        booking.oceanActivity = document.querySelector("#ocean-activity").value;
+      }
+
+      const randomId = [...crypto.getRandomValues(new Uint8Array(6))]
+        .map((byte) => byte.toString(16).padStart(2, "0"))
+        .join("")
+        .toUpperCase();
+      const invoice = `MYE-${Date.now().toString(36).toUpperCase()}-${randomId}`;
+
+      try {
+        sessionStorage.setItem(`myevent-booking:${invoice}`, JSON.stringify(booking));
+      } catch (error) {
+        result.textContent = "Data booking tidak dapat disimpan di browser ini. Aktifkan penyimpanan sesi lalu coba lagi.";
+        result.classList.add("is-visible");
+        result.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        console.error("Unable to save MyEvent booking for checkout.", error);
+        return;
+      }
+
+      const paymentUrl = new URL("myevent-pembayaran.html", window.location.href);
+      paymentUrl.searchParams.set("invoice", invoice);
+      window.location.href = paymentUrl.href;
     });
   </script>
 </body>

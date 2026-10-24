@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f6f0">
+  <meta name="description" content="Invoice dan detail pembayaran booking MyEvent.">
+  <title>Invoice MyEvent — Serenity Beach Villa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #243d3b;
+      --muted: #687b75;
+      --cream: #f8f6f0;
+      --paper: #fffefa;
+      --sea-dark: #203d3a;
+      --line: #e6e5dc;
+      --serif: "Playfair Display", Georgia, serif;
+      --sans: "DM Sans", Arial, sans-serif;
+      --content: 820px;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--cream); color: var(--ink); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    button,select { font: inherit; }
+    .container { width: min(var(--content),calc(100% - 40px)); margin-inline: auto; }
+    .announcement { display: flex; min-height: 36px; align-items: center; justify-content: center; gap: 9px; padding: 7px 16px; background: var(--sea-dark); color: #f7f4e9; font-size: 9px; letter-spacing: .13em; text-align: center; text-transform: uppercase; }
+    .announcement span { color: #e7c697; }
+    .site-header { border-bottom: 1px solid rgba(36,61,59,.09); background: rgba(248,246,240,.96); }
+    .nav { display: flex; min-height: 70px; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { display: inline-flex; align-items: center; }
+    .brand-logo { display: block; width: 78px; height: auto; object-fit: contain; }
+    .back-link { color: #526761; font-size: 9px; letter-spacing: .08em; text-transform: uppercase; }
+    main { padding: 45px 0 72px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 10px; color: #9a7950; font-size: 9px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; }
+    .eyebrow::before { width: 25px; height: 1px; background: currentColor; content: ""; }
+    h1,h2,h3,p { margin-top: 0; }
+    h1 { margin: 12px 0 8px; font: 400 clamp(34px,6vw,49px)/1.1 var(--serif); }
+    .intro { margin-bottom: 20px; color: var(--muted); font-size: 11px; line-height: 1.8; }
+    .notice { margin-bottom: 17px; padding: 14px 16px; border-left: 2px solid #b5966d; background: #f5f1e8; color: #526761; font-size: 10px; line-height: 1.75; }
+    .notice strong { color: var(--ink); }
+    .panel { padding: clamp(20px,4vw,30px); border: 1px solid rgba(36,61,59,.09); background: var(--paper); box-shadow: 0 12px 35px rgba(35,55,48,.06); }
+    .panel-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; padding-bottom: 17px; border-bottom: 1px solid var(--line); }
+    .panel-heading h2 { margin-bottom: 4px; font: 400 24px var(--serif); }
+    .panel-heading p { margin-bottom: 0; color: var(--muted); font-size: 10px; }
+    .invoice-id { color: var(--muted); font-size: 8px; line-height: 1.7; text-align: right; }
+    .invoice-id strong { color: var(--ink); font-size: 10px; }
+    .status { display: inline-flex; align-items: center; gap: 7px; margin: 15px 0 0; padding: 7px 10px; border: 1px solid #e9ddc5; background: #f6f0e4; color: #795e35; font-size: 8px; font-weight: 700; letter-spacing: .07em; }
+    .status::before { width: 7px; height: 7px; border-radius: 50%; background: #b68b4b; content: ""; }
+    .status.is-paid { border-color: #d1e2d5; background: #edf5ed; color: #315d42; }
+    .status.is-paid::before { background: #4d9660; }
+    .details { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 17px 0; }
+    .detail span { display: block; margin-bottom: 4px; color: var(--muted); font-size: 8px; }
+    .detail strong { font-size: 10px; font-weight: 600; overflow-wrap: anywhere; }
+    .line-items { width: 100%; border-collapse: collapse; text-align: left; }
+    .line-items th { padding: 10px 0; border-bottom: 1px solid var(--line); color: var(--muted); font-size: 8px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+    .line-items td { padding: 12px 0; border-bottom: 1px solid var(--line); color: #526761; font-size: 10px; line-height: 1.65; vertical-align: top; }
+    .line-items th:last-child,.line-items td:last-child { text-align: right; white-space: nowrap; }
+    .total-row { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding-top: 17px; }
+    .total-row span { font-size: 10px; font-weight: 700; }
+    .total-row strong { color: var(--sea-dark); font-size: 20px; text-align: right; }
+    .invoice-note { margin: 14px 0 0; padding-top: 12px; border-top: 1px solid var(--line); color: var(--muted); font-size: 9px; line-height: 1.7; }
+    .payment-section { margin-top: 18px; padding-top: 19px; border-top: 1px solid var(--line); }
+    .payment-section h3 { margin-bottom: 5px; font: 400 22px var(--serif); }
+    .payment-intro { margin-bottom: 13px; color: var(--muted); font-size: 9px; line-height: 1.7; }
+    .field label { display: block; margin-bottom: 7px; color: #65766f; font-size: 8px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+    .field select { width: 100%; min-height: 43px; padding: 0 11px; border: 1px solid var(--line); outline-color: #9a7950; background: var(--paper); color: var(--ink); font-size: 10px; }
+    .payment-code { margin-top: 14px; padding: 15px; border: 1px solid var(--line); background: #f8f6f0; text-align: center; }
+    .payment-code span { display: block; margin-bottom: 6px; color: var(--muted); font-size: 8px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+    .payment-code strong { display: block; color: var(--sea-dark); font-size: clamp(18px,5vw,24px); letter-spacing: .13em; overflow-wrap: anywhere; }
+    .payment-code small { display: block; margin-top: 7px; color: var(--muted); font-size: 8px; line-height: 1.6; }
+    .button { display: inline-flex; min-height: 45px; align-items: center; justify-content: center; gap: 8px; padding: 0 16px; border: 0; background: var(--sea-dark); color: white; cursor: pointer; font-size: 9px; font-weight: 700; letter-spacing: .07em; text-align: center; text-transform: uppercase; }
+    .button:hover { background: #345d55; }
+    .button:disabled { cursor: default; opacity: .68; }
+    .submit-button { width: 100%; margin-top: 14px; }
+    .actions { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 17px; }
+    .button-secondary { border: 1px solid var(--line); background: transparent; color: var(--ink); }
+    .button-secondary:hover { background: #f3f1e9; }
+    .payment-result,.pending-result { margin-top: 13px; padding: 13px 14px; border: 1px solid #d1e2d5; background: #edf5ed; color: #315d42; font-size: 10px; line-height: 1.7; }
+    .pending-result { border-color: #e9ddc5; background: #f6f0e4; color: #795e35; }
+    .invalid { padding: 16px; border: 1px solid #ecd6cc; background: #fbf1ed; color: #874f3f; font-size: 11px; line-height: 1.7; }
+    [hidden] { display: none !important; }
+    .footer { padding: 22px 0; background: var(--sea-dark); color: #b7c2b8; font-size: 9px; }
+    @media (max-width:480px) {
+      .container { width: calc(100% - 32px); }
+      .nav { min-height: 64px; }
+      .brand-logo { width: 70px; }
+      main { padding: 34px 0 55px; }
+      .panel { padding: 19px 16px; }
+      .panel-heading { flex-direction: column; }
+      .invoice-id { text-align: left; }
+      .actions { flex-direction: column; }
+      .actions .button { width: 100%; }
+    }
+    @media print {
+      body { background: white; }
+      .announcement,.site-header,.notice,.payment-section,.actions,.footer { display: none; }
+      main { padding: 0; }
+      .container { width: 100%; }
+      .panel { border: 0; box-shadow: none; }
+    }
+    @media (prefers-reduced-motion: reduce) { *,*::before,*::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }
+  </style>
+</head>
+<body>
+  <div class="announcement"><span aria-hidden="true">✳</span> MyEvent · Payment &amp; invoice <span aria-hidden="true">✳</span></div>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="index.html" aria-label="Serenity Beach Villa, beranda"><img class="brand-logo" src="foto/logo-serenity.png" alt="Serenity Beach Villa"></a>
+      <a class="back-link" href="bookingEvent.html">← Kembali ke MyEvent</a>
+    </div>
+  </header>
+  <main class="container">
+    <section>
+      <span class="eyebrow">MyEvent · Invoice booking</span>
+      <h1>Detail booking &amp; pembayaran.</h1>
+      <p class="intro">Periksa detail permintaan booking dan invoice kamu di bawah ini.</p>
+    </section>
+    <aside class="notice" id="payment-notice" role="note"></aside>
+    <section class="panel" id="invoice-panel" aria-labelledby="invoice-title" hidden>
+      <div class="panel-heading">
+        <div><h2 id="invoice-title">Invoice MyEvent</h2><p>Serenity Beach Villa · Bali</p></div>
+        <div class="invoice-id">NO. INVOICE<br><strong id="invoice-number"></strong></div>
+      </div>
+      <div class="status" id="invoice-status">MENUNGGU PEMBAYARAN</div>
+      <div class="details" id="booking-details"></div>
+      <table class="line-items">
+        <thead><tr><th>Deskripsi</th><th>Jumlah</th></tr></thead>
+        <tbody id="invoice-items"></tbody>
+      </table>
+      <div class="total-row"><span id="invoice-total-label">Total pembayaran</span><strong id="invoice-total"></strong></div>
+      <p class="invoice-note" id="invoice-note"></p>
+
+      <section class="payment-section" id="payment-section" aria-labelledby="payment-title" hidden>
+        <h3 id="payment-title">Kode pembayaran</h3>
+        <p class="payment-intro">Pilih metode pembayaran. Kode ini dibuat secara acak untuk simulasi dan belum terhubung ke bank atau payment gateway.</p>
+        <div class="field">
+          <label for="payment-method">Metode pembayaran</label>
+          <select id="payment-method">
+            <option>Transfer Bank BCA</option>
+            <option>Transfer Bank Mandiri</option>
+            <option>Transfer Bank BNI</option>
+            <option>GoPay</option>
+            <option>OVO</option>
+            <option>DANA</option>
+            <option>ATM</option>
+            <option>Retail (minimarket)</option>
+          </select>
+        </div>
+        <div class="payment-code">
+          <span>Kode pembayaran simulasi</span>
+          <strong id="payment-code"></strong>
+          <small>Jumlah yang ditampilkan di invoice: <span id="payment-amount"></span></small>
+        </div>
+        <button class="button submit-button" id="confirm-payment" type="button">Tandai sebagai sudah dibayar <span aria-hidden="true">→</span></button>
+        <div class="payment-result" id="payment-result" role="status" aria-live="polite" hidden></div>
+      </section>
+      <div class="pending-result" id="pending-result" role="status" hidden></div>
+      <div class="actions">
+        <button class="button button-secondary" id="print-invoice" type="button">Cetak invoice</button>
+        <a class="button button-secondary" href="bookingEvent.html">Booking lagi</a>
+        <a class="button button-secondary" href="index.html">Kembali ke beranda</a>
+      </div>
+    </section>
+    <div class="invalid" id="invalid-booking" role="alert" hidden>Detail booking tidak ditemukan atau sesi browser sudah berakhir. Silakan kembali ke MyEvent dan isi formulir booking lagi.</div>
+  </main>
+  <footer class="footer"><div class="container">© <span id="year"></span> MyEvent · Serenity Beach Villa</div></footer>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const invoice = params.get("invoice") || "";
+    const invoicePattern = /^MYE-[A-Z0-9-]{1,48}$/;
+    const allowedServices = ["motor", "trip", "entertainment", "ocean"];
+    const allowedMethods = [
+      "Transfer Bank BCA", "Transfer Bank Mandiri", "Transfer Bank BNI",
+      "GoPay", "OVO", "DANA", "ATM", "Retail (minimarket)"
+    ];
+    const formatPrice = (amount) => new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+      maximumFractionDigits: 0
+    }).format(amount);
+    const formatDate = (value) => {
+      const [year, month, day] = value.split("-").map(Number);
+      return new Intl.DateTimeFormat("id-ID", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" })
+        .format(new Date(Date.UTC(year, month - 1, day)));
+    };
+    const addDetail = (container, label, value) => {
+      const detail = document.createElement("div");
+      detail.className = "detail";
+      const title = document.createElement("span");
+      title.textContent = label;
+      const content = document.createElement("strong");
+      content.textContent = value || "-";
+      detail.append(title, content);
+      container.append(detail);
+    };
+    const addItem = (description, amount) => {
+      const row = document.createElement("tr");
+      const descriptionCell = document.createElement("td");
+      descriptionCell.textContent = description;
+      const amountCell = document.createElement("td");
+      amountCell.textContent = amount;
+      row.append(descriptionCell, amountCell);
+      document.querySelector("#invoice-items").append(row);
+    };
+
+    document.querySelector("#year").textContent = new Date().getFullYear();
+
+    let booking;
+    try {
+      const storedBooking = sessionStorage.getItem(`myevent-booking:${invoice}`);
+      booking = storedBooking ? JSON.parse(storedBooking) : null;
+    } catch (error) {
+      document.querySelector("#invalid-booking").hidden = false;
+      console.error("Unable to read MyEvent booking from the current browser session.", error);
+    }
+
+    const validBooking = invoicePattern.test(invoice)
+      && booking && allowedServices.includes(booking.service)
+      && typeof booking.name === "string" && booking.name.trim()
+      && typeof booking.phone === "string" && booking.phone.trim()
+      && typeof booking.email === "string" && booking.email.trim()
+      && /^\d{4}-\d{2}-\d{2}$/.test(booking.date)
+      && /^\d{2}:\d{2}$/.test(booking.time)
+      && Number.isSafeInteger(Number(booking.guests)) && Number(booking.guests) > 0;
+
+    if (validBooking) {
+      const pricedMotorRental = booking.service === "motor"
+        && booking.rentalPeriod === "day"
+        && Number.isSafeInteger(booking.rentalQuantity)
+        && booking.rentalQuantity >= 1
+        && booking.rentalQuantity <= 30;
+      const amount = pricedMotorRental ? 150000 * booking.rentalQuantity : null;
+      const method = params.get("paymentMethod");
+      const savedMethod = allowedMethods.includes(method) ? method : "";
+      const paymentStatusKey = `myevent-payment-status:${invoice}`;
+
+      document.querySelector("#invoice-number").textContent = invoice;
+      document.querySelector("#booking-details").replaceChildren();
+      addDetail(document.querySelector("#booking-details"), "Nama", booking.name);
+      addDetail(document.querySelector("#booking-details"), "Kontak", booking.phone);
+      addDetail(document.querySelector("#booking-details"), "Email", booking.email);
+      addDetail(document.querySelector("#booking-details"), "Tanggal acara", formatDate(booking.date));
+      addDetail(document.querySelector("#booking-details"), "Waktu", booking.time);
+      addDetail(document.querySelector("#booking-details"), "Jumlah peserta / tamu", `${booking.guests} orang`);
+
+      if (booking.service === "motor") {
+        addDetail(document.querySelector("#booking-details"), "Lokasi pengambilan", booking.rentalLocation);
+        addItem(
+          `Rental motor · ${booking.rentalQuantity} ${booking.rentalPeriod === "day" ? "hari" : "jam"}`,
+          amount === null ? "Menunggu konfirmasi" : formatPrice(amount)
+        );
+      } else if (booking.service === "trip") {
+        addDetail(document.querySelector("#booking-details"), "Destinasi", booking.destination);
+        addDetail(document.querySelector("#booking-details"), "Gaya perjalanan", booking.tripStyle);
+        addItem(`Field trip · ${booking.destination}`, "Menunggu konfirmasi partner");
+      } else if (booking.service === "entertainment") {
+        addDetail(document.querySelector("#booking-details"), "Jenis acara", booking.eventType);
+        addDetail(document.querySelector("#booking-details"), "Kebutuhan acara", Array.isArray(booking.eventNeeds) ? booking.eventNeeds.join(", ") : "-");
+        if (booking.otherEventNeedDetails) {
+          addDetail(document.querySelector("#booking-details"), "Kebutuhan lainnya", booking.otherEventNeedDetails);
+        }
+        addItem(`Entertainment · ${booking.eventType}`, "Menunggu konfirmasi partner");
+      } else {
+        addDetail(document.querySelector("#booking-details"), "Aktivitas laut", booking.oceanActivity);
+        addItem(`Ocean experience · ${booking.oceanActivity}`, "Menunggu konfirmasi partner");
+      }
+
+      if (booking.notes) addDetail(document.querySelector("#booking-details"), "Catatan", booking.notes);
+      document.querySelector("#invoice-panel").hidden = false;
+
+      if (amount !== null && Number.isSafeInteger(amount) && amount > 0) {
+        let paymentCode = booking.paymentCode;
+        if (!/^\d{16}$/.test(paymentCode || "")) {
+          const digits = crypto.getRandomValues(new Uint8Array(16));
+          paymentCode = [...digits].map((digit) => String(digit % 10)).join("");
+          booking.paymentCode = paymentCode;
+          try {
+            sessionStorage.setItem(`myevent-booking:${invoice}`, JSON.stringify(booking));
+          } catch (error) {
+            document.querySelector("#invalid-booking").hidden = false;
+            document.querySelector("#invoice-panel").hidden = true;
+            console.error("Unable to save MyEvent payment code in the current browser session.", error);
+          }
+        }
+
+        document.querySelector("#invoice-total").textContent = formatPrice(amount);
+        document.querySelector("#invoice-note").textContent = "Harga rental motor Rp150.000 per hari. Harga ini belum mencakup biaya lain yang belum dikonfirmasi.";
+        document.querySelector("#payment-notice").innerHTML = "<strong>Informasi pembayaran:</strong> Kode ini adalah simulasi untuk demo dan belum memproses transaksi sungguhan.";
+        document.querySelector("#payment-code").textContent = paymentCode;
+        document.querySelector("#payment-amount").textContent = formatPrice(amount);
+        document.querySelector("#payment-section").hidden = false;
+        if (savedMethod || booking.paymentMethod) {
+          document.querySelector("#payment-method").value = allowedMethods.includes(booking.paymentMethod)
+            ? booking.paymentMethod
+            : savedMethod;
+        }
+
+        if (sessionStorage.getItem(paymentStatusKey) === "paid") {
+          document.querySelector("#invoice-status").textContent = "LUNAS (SIMULASI)";
+          document.querySelector("#invoice-status").classList.add("is-paid");
+          document.querySelector("#payment-result").textContent = "Status pembayaran simulasi untuk invoice ini sudah dikonfirmasi.";
+          document.querySelector("#payment-result").hidden = false;
+          document.querySelector("#confirm-payment").disabled = true;
+          document.querySelector("#confirm-payment").textContent = "Pembayaran sudah dikonfirmasi";
+        } else {
+          document.querySelector("#confirm-payment").addEventListener("click", () => {
+            try {
+              booking.paymentMethod = document.querySelector("#payment-method").value;
+              sessionStorage.setItem(`myevent-booking:${invoice}`, JSON.stringify(booking));
+              sessionStorage.setItem(paymentStatusKey, "paid");
+            } catch (error) {
+              document.querySelector("#payment-result").textContent = "Status pembayaran tidak dapat disimpan. Coba lagi di browser yang mengizinkan penyimpanan sesi.";
+              document.querySelector("#payment-result").hidden = false;
+              console.error("Unable to save MyEvent payment status.", error);
+              return;
+            }
+            document.querySelector("#invoice-status").textContent = "LUNAS (SIMULASI)";
+            document.querySelector("#invoice-status").classList.add("is-paid");
+            document.querySelector("#payment-result").textContent = `Pembayaran simulasi dengan ${document.querySelector("#payment-method").value} sudah dikonfirmasi.`;
+            document.querySelector("#payment-result").hidden = false;
+            document.querySelector("#confirm-payment").disabled = true;
+            document.querySelector("#confirm-payment").textContent = "Pembayaran sudah dikonfirmasi";
+          });
+        }
+      } else {
+        document.querySelector("#invoice-status").textContent = "MENUNGGU KONFIRMASI HARGA";
+        document.querySelector("#invoice-total-label").textContent = "Total pembayaran";
+        document.querySelector("#invoice-total").textContent = "Menunggu konfirmasi";
+        document.querySelector("#invoice-note").textContent = booking.service === "motor"
+          ? "Harga sewa motor per jam belum ditetapkan. Harga dan ketersediaan perlu dikonfirmasi sebelum pembayaran."
+          : "Harga dan ketersediaan layanan ini ditentukan oleh partner affiliate. Pembayaran baru dapat dilakukan setelah nominal dikonfirmasi.";
+        document.querySelector("#payment-notice").innerHTML = "<strong>Harga belum tersedia:</strong> Invoice ini mencatat permintaan booking. Silakan tunggu konfirmasi harga partner sebelum melakukan pembayaran.";
+        document.querySelector("#pending-result").textContent = `Kode referensi booking: ${invoice}. Kode ini bukan kode pembayaran.`;
+        document.querySelector("#pending-result").hidden = false;
+        document.querySelector("#payment-section").hidden = true;
+      }
+    } else if (!document.querySelector("#invalid-booking").hidden) {
+      document.querySelector("#payment-notice").textContent = "Sesi booking tidak dapat dibaca.";
+    } else {
+      document.querySelector("#invalid-booking").hidden = false;
+    }
+
+    document.querySelector("#print-invoice").addEventListener("click", () => window.print());
+  </script>
+</body>
+</html>
