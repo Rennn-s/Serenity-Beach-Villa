@@ -232,7 +232,10 @@
         && Number.isSafeInteger(booking.rentalQuantity)
         && booking.rentalQuantity >= 1
         && booking.rentalQuantity <= 30;
-      const amount = pricedMotorRental ? 150000 * booking.rentalQuantity : null;
+      const pricedEventVenue = booking.service === "entertainment";
+      const amount = pricedMotorRental
+        ? 150000 * booking.rentalQuantity
+        : pricedEventVenue ? 1500000 : null;
       const method = params.get("paymentMethod");
       const savedMethod = allowedMethods.includes(method) ? method : "";
       const paymentStatusKey = `myevent-payment-status:${invoice}`;
@@ -262,7 +265,7 @@
         if (booking.otherEventNeedDetails) {
           addDetail(document.querySelector("#booking-details"), "Kebutuhan lainnya", booking.otherEventNeedDetails);
         }
-        addItem(`Entertainment · ${booking.eventType}`, "Menunggu konfirmasi partner");
+        addItem(`Sewa venue · ${booking.eventType}`, formatPrice(amount));
       } else {
         addDetail(document.querySelector("#booking-details"), "Aktivitas laut", booking.oceanActivity);
         addItem(`Ocean experience · ${booking.oceanActivity}`, "Menunggu konfirmasi partner");
@@ -287,7 +290,9 @@
         }
 
         document.querySelector("#invoice-total").textContent = formatPrice(amount);
-        document.querySelector("#invoice-note").textContent = "Harga rental motor Rp150.000 per hari. Harga ini belum mencakup biaya lain yang belum dikonfirmasi.";
+        document.querySelector("#invoice-note").textContent = pricedEventVenue
+          ? "Harga sewa venue Rp1.500.000 per acara. Biaya layanan entertainment dari partner, seperti dekorasi, catering, musik, atau dokumentasi, belum termasuk dan perlu dikonfirmasi terpisah."
+          : "Harga rental motor Rp150.000 per hari. Harga ini belum mencakup biaya lain yang belum dikonfirmasi.";
         document.querySelector("#payment-notice").innerHTML = "<strong>Informasi pembayaran:</strong> Kode ini adalah simulasi untuk demo dan belum memproses transaksi sungguhan.";
         document.querySelector("#payment-code").textContent = paymentCode;
         document.querySelector("#payment-amount").textContent = formatPrice(amount);
